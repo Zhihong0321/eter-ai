@@ -7,6 +7,15 @@ questions:
   - Why are your prices higher than others?
   - Is the cheapest solar quote the best choice?
   - What value am I getting from this proposal?
+  - Is this price worth it?
+  - Is solar worth the money?
+  - Why is solar expensive?
+  - Why is this so expensive?
+  - Is this good value?
+  - Can I get a cheaper quote?
+  - Should I compare quotes?
+  - What do I get for the price?
+  - Is this the best deal?
 ---
 
 # Why Is This Proposal Worth the Price?

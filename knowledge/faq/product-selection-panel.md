@@ -7,6 +7,17 @@ questions:
   - Are these panels good?
   - Why did you choose Jinko panels?
   - Is JinkoSolar suitable for Malaysia?
+  - Tell me about the panels
+  - What panels are included?
+  - Are Jinko panels good?
+  - Why Jinko?
+  - Is JinkoSolar a good brand?
+  - What type of panels are these?
+  - What is Tiger Neo?
+  - N-type panels
+  - TOPCon panels
+  - What is the panel efficiency?
+  - How good are these solar panels?
 ---
 
 # Why Was This Solar Panel Selected?

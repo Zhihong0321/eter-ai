@@ -15,6 +15,7 @@ import type { Config } from 'dompurify';
 const ALLOWED_TAGS: string[] = [
   'p',
   'h3',
+  'h2',
   'ul',
   'ol',
   'li',
@@ -33,6 +34,7 @@ const ALLOWED_TAGS: string[] = [
   'br',
   'hr',
   'img',
+  'button',
 ];
 
 const ALLOWED_CLASSES: ReadonlySet<string> = new Set([
@@ -116,9 +118,44 @@ const ALLOWED_CLASSES: ReadonlySet<string> = new Set([
   'ans-premium__point',
   'ans-premium__mark',
   'ans-premium__point-body',
+  // Brand row + agent block
+  'ans-premium__brand-row',
+  'ans-premium__brand-logo',
+  'ans-premium__agent',
+  'ans-premium__agent-avatar',
+  'ans-premium__agent-info',
+  'ans-premium__agent-name',
+  'ans-premium__agent-role',
+  'ans-premium__agent-cta',
+  'ans-cta--sm',
+  // Carousel
+  'ans-carousel',
+  'ans-carousel__track',
+  'ans-carousel__slide',
+  'ans-carousel__slide--c1',
+  'ans-carousel__slide--c2',
+  'ans-carousel__slide--c3',
+  'ans-carousel__slide--c4',
+  'ans-carousel__slide--c5',
+  'ans-carousel__slide--c6',
+  'ans-carousel__slide--c7',
+  'ans-carousel__slide--c8',
+  'ans-carousel__slide--c9',
+  'ans-carousel__slide--c10',
+  'ans-carousel__slide--c11',
+  'ans-carousel__slide--c12',
+  'ans-carousel__slide-icon',
+  'ans-carousel__slide-title',
+  'ans-carousel__slide-body',
+  'ans-carousel__nav',
+  'ans-carousel__prev',
+  'ans-carousel__next',
+  'ans-carousel__dots',
+  'ans-carousel__dot',
+  'ans-carousel__dot--active',
 ]);
 
-const ALLOWED_ATTR: string[] = ['class', 'href', 'target', 'rel', 'src', 'alt', 'loading'];
+const ALLOWED_ATTR: string[] = ['class', 'href', 'target', 'rel', 'src', 'alt', 'loading', 'aria-label', 'type'];
 
 /* ------------------------------------------------------------------ */
 /*  DOMPurify config (exported for testing)                            */

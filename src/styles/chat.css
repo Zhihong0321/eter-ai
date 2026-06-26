@@ -69,6 +69,15 @@
   white-space: nowrap;
 }
 
+.chat-header__logo {
+  display: block;
+  height: 28px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  object-position: left center;
+}
+
 .chat-header__actions {
   display: flex;
   align-items: center;
@@ -121,6 +130,44 @@
   padding: var(--sp-3) var(--sp-4);
   background: var(--color-bg-elevated);
   border-bottom: 1px solid var(--color-border);
+}
+
+.chat-invoice-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-2);
+}
+
+.chat-invoice-panel-title {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.chat-invoice-close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: color var(--transition-fast), background-color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.chat-invoice-close-btn:hover {
+  color: var(--color-text);
+  background: var(--color-bg);
+  border-color: var(--color-border-strong);
 }
 
 .chat-invoice-form {
@@ -605,6 +652,42 @@
 
 .response-feedback.is-saving .response-feedback__save {
   opacity: 0.6;
+}
+
+/* ---------- Streaming Glitch Animation ---------- */
+.streaming-glitch {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding: var(--sp-4) var(--sp-5);
+  min-height: 2.4em;
+  animation: msgFadeIn 0.3s var(--ease-out-soft) both;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+}
+
+.glitch-char {
+  display: inline-block;
+  background: linear-gradient(
+    135deg,
+    hsl(calc(var(--gp) * 2.4deg), 90%, 62%) 0%,
+    hsl(calc(var(--gp) * 2.4deg + 60deg), 95%, 68%) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: glitchFlicker 0.1s steps(1) infinite;
+  filter: drop-shadow(0 0 6px hsl(calc(var(--gp) * 2.4), 90%, 62%));
+}
+
+@keyframes glitchFlicker {
+  0%   { opacity: 1; }
+  45%  { opacity: 0.7; }
+  55%  { opacity: 1; }
+  90%  { opacity: 0.85; }
+  100% { opacity: 1; }
 }
 
 /* ---------- Typing Indicator ---------- */

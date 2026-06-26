@@ -9,6 +9,15 @@ questions:
   - How does SAJ compare with other inverter brands?
   - Is SAJ one of the best inverter brands?
   - Why does Eternalgy recommend SAJ?
+  - Is Huawei better?
+  - Is Sungrow better?
+  - What about Growatt inverter?
+  - Huawei inverter vs SAJ
+  - SAJ vs Sungrow
+  - Which inverter brand is best?
+  - Is SAJ better than Huawei?
+  - Compare SAJ with other brands
+  - Why not use Huawei?
 ---
 
 # Is Another Inverter Brand Better Than SAJ?

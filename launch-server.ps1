@@ -20,7 +20,7 @@ $wd = "D:\00product-ai"
 
 # Start API server
 Write-Host "[launcher] Starting API server on port $API_PORT..."
-Start-Process -FilePath $node -ArgumentList "-r tsx server/index.ts" -WorkingDirectory $wd -WindowStyle Hidden
+Start-Process -FilePath $node -ArgumentList "dist/server/index.js" -WorkingDirectory $wd -WindowStyle Hidden
 
 # Start Vite frontend
 Write-Host "[launcher] Starting Vite frontend on port $VITE_PORT..."

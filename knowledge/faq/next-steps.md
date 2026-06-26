@@ -7,6 +7,16 @@ questions:
   - I want to proceed. What happens next?
   - How do we get started?
   - What documents do you need from me?
+  - How do I confirm my order?
+  - How do I accept the proposal?
+  - I want to proceed
+  - How do I proceed?
+  - I am ready to go ahead
+  - What do I need to do to start?
+  - How long until installation?
+  - What is the approval process?
+  - When will my system be ready?
+  - How do I apply for Solar ATAP?
 ---
 
 # What Is the Next Step?

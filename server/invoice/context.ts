@@ -333,7 +333,7 @@ export function buildInvoicePromptContext(
       `WhatsApp link (use EXACTLY as the href, do not modify): ${context.agentWhatsAppUrl}`,
       '',
       'When a question CANNOT be fully and confidently answered from the Knowledge Base or the package data above — for example: pricing negotiation, discounts, payment or financing terms, scheduling a site visit, contract or proposal changes, anything outside the documented knowledge, or whenever the customer asks to speak to a person — do NOT guess and do NOT make up figures.',
-      'Instead: give a brief one-sentence acknowledgement, then end the answer with this exact call-to-action component (substitute nothing except keeping the href as provided):',
+      `Instead, ALWAYS write a short, warm hand-off message BEFORE the button. Never output the button on its own. The message must (1) briefly apologise that you cannot fully answer this here, (2) explain in one sentence why ${consultantName} is the right person to help with this specific question, and (3) invite the customer to reach out. Then end with this EXACT call-to-action component (substitute nothing except keeping the href as provided):`,
       buildSalesConsultantWhatsAppCta(context.agentWhatsAppUrl),
       '',
       'Hard rules for escalation:',

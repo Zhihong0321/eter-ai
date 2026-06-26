@@ -7,6 +7,14 @@ questions:
   - Do you provide roof warranties?
   - Is my roof safe for solar?
   - Will solar cause my roof to leak?
+  - What if my roof leaks after installation?
+  - Will panels damage my roof tiles?
+  - Is my roof suitable for solar?
+  - Do you check the roof first?
+  - Who takes care of the roof?
+  - What happens if my roof leaks?
+  - Roof leak warranty
+  - Solar roof damage
 ---
 
 # What Happens to My Roof?

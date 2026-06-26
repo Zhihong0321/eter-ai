@@ -7,6 +7,18 @@ questions:
   - What happens if something goes wrong?
   - Is my solar system insured?
   - What warranty is included?
+  - What warranty is covered?
+  - What warranties do I get?
+  - What warranty coverage do I have?
+  - Tell me about the warranty
+  - What is covered under warranty?
+  - Warranty details
+  - What insurance is included?
+  - What protection do I get?
+  - How long is the panel warranty?
+  - How long is the inverter warranty?
+  - Is my system insured?
+  - What does the warranty cover?
 ---
 
 # What Protection and Warranty Will I Receive?

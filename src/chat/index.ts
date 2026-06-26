@@ -184,6 +184,41 @@ function createTypingIndicator(): HTMLElement {
   return indicator;
 }
 
+const GLITCH_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+function createStreamingGlitch(): { el: HTMLElement; stop: () => void } {
+  const bubble = el('div', 'message-assistant streaming-glitch');
+
+  let charCount = 3;
+  let stopped = false;
+
+  const render = () => {
+    if (stopped) return;
+    let html = '';
+    for (let i = 0; i < charCount; i++) {
+      const ch = GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+      const pct = Math.round((i / Math.max(charCount - 1, 1)) * 100);
+      html += `<span class="glitch-char" style="--gp:${pct}">${ch}</span>`;
+    }
+    bubble.innerHTML = html;
+  };
+
+  render();
+
+  const charTimer = setInterval(() => { render(); }, 1000 / 60);
+  const growTimer = setInterval(() => {
+    if (!stopped) charCount++;
+  }, 500);
+
+  const stop = () => {
+    stopped = true;
+    clearInterval(charTimer);
+    clearInterval(growTimer);
+  };
+
+  return { el: bubble, stop };
+}
+
 /* ------------------------------------------------------------------ */
 /*  Message rendering                                                  */
 /* ------------------------------------------------------------------ */
@@ -430,6 +465,74 @@ function renderWelcome(list: HTMLElement, onSuggestion: (q: string) => void): vo
 }
 
 /* ------------------------------------------------------------------ */
+/*  Carousel initialiser                                              */
+/* ------------------------------------------------------------------ */
+
+function initCarousel(carousel: HTMLElement): void {
+  const track = carousel.querySelector<HTMLElement>('.ans-carousel__track');
+  const slides = Array.from(carousel.querySelectorAll<HTMLElement>('.ans-carousel__slide'));
+  const dots   = Array.from(carousel.querySelectorAll<HTMLElement>('.ans-carousel__dot'));
+  const prev   = carousel.querySelector<HTMLElement>('.ans-carousel__prev');
+  const next   = carousel.querySelector<HTMLElement>('.ans-carousel__next');
+
+  if (!track || slides.length < 2) return;
+
+  let current = 0;
+  let timer: ReturnType<typeof setInterval> | null = null;
+
+  function goTo(index: number): void {
+    current = ((index % slides.length) + slides.length) % slides.length;
+    track!.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('ans-carousel__dot--active', i === current);
+    });
+  }
+
+  function startTimer(): void {
+    if (timer !== null) clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 2000);
+  }
+
+  function stopTimer(): void {
+    if (timer !== null) { clearInterval(timer); timer = null; }
+  }
+
+  prev?.addEventListener('click', () => { goTo(current - 1); startTimer(); });
+  next?.addEventListener('click', () => { goTo(current + 1); startTimer(); });
+  dots.forEach((dot, i) => dot.addEventListener('click', () => { goTo(i); startTimer(); }));
+
+  // Pause on hover
+  carousel.addEventListener('mouseenter', stopTimer);
+  carousel.addEventListener('mouseleave', startTimer);
+
+  // Touch swipe
+  let touchX = 0;
+  carousel.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  carousel.addEventListener('touchend', (e) => {
+    const diff = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 36) { goTo(current + (diff > 0 ? 1 : -1)); startTimer(); }
+  }, { passive: true });
+
+  startTimer();
+}
+
+function initCarousels(container: HTMLElement): void {
+  container.querySelectorAll<HTMLElement>('.ans-carousel').forEach(initCarousel);
+}
+
+/* Hide logo tiles whose image 404s instead of showing a broken-image icon */
+function hideBrokenLogoImages(container: HTMLElement): void {
+  container.querySelectorAll<HTMLImageElement>('.ans-premium__logo-img').forEach((img) => {
+    if (!img.complete || img.naturalWidth === 0) {
+      img.addEventListener('error', () => {
+        const tile = img.closest('.ans-premium__logo-tile');
+        if (tile instanceof HTMLElement) tile.style.display = 'none';
+      }, { once: true });
+    }
+  });
+}
+
+/* ------------------------------------------------------------------ */
 /*  Main mount function                                                */
 /* ------------------------------------------------------------------ */
 
@@ -437,8 +540,9 @@ function renderWelcome(list: HTMLElement, onSuggestion: (q: string) => void): vo
  * Mount the Solar PV Q&A chat interface into the given container.
  */
 export function mountChat(container: HTMLElement): void {
+  const DEFAULT_INVOICE_UID = '041d683a-c527-40b9-9d30-8ddd15ee691f';
   let invoiceUid =
-    new URLSearchParams(window.location.search).get('invoice_uid')?.trim() || null;
+    new URLSearchParams(window.location.search).get('invoice_uid')?.trim() || DEFAULT_INVOICE_UID;
 
   /* ---- Root layout ---- */
   const root = el('div', 'chat-container');
@@ -448,8 +552,7 @@ export function mountChat(container: HTMLElement): void {
 
   const brand = el('div', 'chat-header__brand');
   brand.innerHTML = `
-    <span class="chat-header__mark">${SUN_SVG}</span>
-    <span class="chat-header__title">Solar PV Q&amp;A</span>
+    <img class="chat-header__logo" src="/logo/eternalgy.png" alt="Eternalgy Solar">
   `;
 
   const actions = el('div', 'chat-header__actions');
@@ -479,10 +582,17 @@ export function mountChat(container: HTMLElement): void {
   invoicePanel.hidden = true;
   invoicePanel.setAttribute('aria-label', 'Invoice search');
 
+  const invoicePanelHeader = el('div', 'chat-invoice-panel-header');
+  const invoicePanelTitle = el('span', 'chat-invoice-panel-title', 'Search Invoice');
+  const invoiceCloseBtn = el('button', 'chat-invoice-close-btn', '&times;') as HTMLButtonElement;
+  invoiceCloseBtn.type = 'button';
+  invoiceCloseBtn.setAttribute('aria-label', 'Close invoice search');
+  invoicePanelHeader.append(invoicePanelTitle, invoiceCloseBtn);
+
   const invoiceSearchForm = el('form', 'chat-invoice-form') as HTMLFormElement;
   const invoiceSearchInput = document.createElement('input');
   invoiceSearchInput.className = 'chat-invoice-input';
-  invoiceSearchInput.type = 'search';
+  invoiceSearchInput.type = 'text';
   invoiceSearchInput.placeholder = 'Customer name, invoice number, or UID';
   invoiceSearchInput.setAttribute(
     'aria-label',
@@ -501,7 +611,7 @@ export function mountChat(container: HTMLElement): void {
   const invoiceResults = el('div', 'chat-invoice-results');
 
   invoiceSearchForm.append(invoiceSearchInput, invoiceSearchButton);
-  invoicePanel.append(invoiceSearchForm, invoiceStatus, invoiceResults);
+  invoicePanel.append(invoicePanelHeader, invoiceSearchForm, invoiceStatus, invoiceResults);
 
   /* ---- Messages ---- */
   const messages = el('main', 'chat-messages');
@@ -546,6 +656,16 @@ export function mountChat(container: HTMLElement): void {
 
   invoiceSearchToggle.addEventListener('click', () => {
     setInvoicePanelOpen(invoicePanel.hidden);
+  });
+
+  invoiceCloseBtn.addEventListener('click', () => {
+    setInvoicePanelOpen(false);
+  });
+
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && !invoicePanel.hidden) {
+      setInvoicePanelOpen(false);
+    }
   });
 
   invoiceSearchForm.addEventListener('submit', async (event) => {
@@ -672,63 +792,49 @@ export function mountChat(container: HTMLElement): void {
     // Show user message
     appendUserMessage(messages, trimmed);
 
-    // Show typing indicator
-    const typing = createTypingIndicator();
-    messages.appendChild(typing);
-    scrollToBottom(messages);
-
     setSending(true);
 
-    // Prepare assistant bubble (hidden until first chunk)
+    // Show glitch animation immediately (no typing dots)
+    const glitch = createStreamingGlitch();
+    const glitchStart = Date.now();
+    const GLITCH_MIN_MS = 1500;
+    messages.appendChild(glitch.el);
+    scrollToBottom(messages);
+
+    // Prepare assistant bubble (hidden until done)
     const assistantBubble = createAssistantBubble();
     const responseId = createResponseId();
-    let gotChunk = false;
+
+    const resolveGlitch = (fullHtml: string) => {
+      glitch.stop(); glitch.el.remove();
+      messages.appendChild(assistantBubble);
+      assistantBubble.innerHTML = fullHtml;
+      initCarousels(assistantBubble);
+      hideBrokenLogoImages(assistantBubble);
+      appendAssistantMeta(assistantBubble);
+      appendFeedbackControls(assistantBubble, responseId, trimmed, fullHtml, invoiceUid, messages);
+      if (fullHtml.includes('class="ans-premium')) {
+        scrollToMessageStart(messages, assistantBubble);
+      } else {
+        scrollToBottom(messages);
+      }
+      setSending(false);
+    };
 
     streamChat(
       trimmed,
       invoiceUid,
-      // onChunk
-      (chunk: string) => {
-        if (!gotChunk) {
-          // First chunk: swap typing indicator for real bubble
-          typing.remove();
-          messages.appendChild(assistantBubble);
-          gotChunk = true;
-        }
-        // Append raw text during streaming (plain text, not HTML yet)
-        assistantBubble.textContent = (assistantBubble.textContent ?? '') + chunk;
-        scrollToBottom(messages);
-      },
+      // onChunk — glitch already visible, nothing to do
+      (_chunk: string) => { scrollToBottom(messages); },
       // onDone
       (fullHtml: string) => {
-        if (!gotChunk) {
-          typing.remove();
-          messages.appendChild(assistantBubble);
-        }
-        // Replace streaming text with sanitized HTML + timestamp
-        assistantBubble.innerHTML = fullHtml;
-        appendAssistantMeta(assistantBubble);
-        appendFeedbackControls(
-          assistantBubble,
-          responseId,
-          trimmed,
-          fullHtml,
-          invoiceUid,
-          messages,
-        );
-        if (fullHtml.includes('class="ans-premium')) {
-          scrollToMessageStart(messages, assistantBubble);
-        } else {
-          scrollToBottom(messages);
-        }
-        setSending(false);
+        const elapsed = Date.now() - glitchStart;
+        const remaining = Math.max(0, GLITCH_MIN_MS - elapsed);
+        setTimeout(() => resolveGlitch(fullHtml), remaining);
       },
       // onError
       (err: string) => {
-        typing.remove();
-        if (gotChunk) {
-          assistantBubble.remove();
-        }
+        glitch.stop(); glitch.el.remove();
         appendErrorMessage(messages, err, () => sendMessage(trimmed));
         setSending(false);
       },

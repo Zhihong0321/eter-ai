@@ -19,6 +19,16 @@ questions:
   - Why should I choose your company?
   - Why choose your company?
   - Why should we go with Eternalgy?
+  - Is Eternalgy a good company?
+  - What makes you different?
+  - What is special about Eternalgy?
+  - Why pick Eternalgy?
+  - Why go with Eternalgy?
+  - Should I choose Eternalgy?
+  - Are you a good solar company?
+  - Is Eternalgy reputable?
+  - What are your strengths?
+  - What is Eternalgy known for?
 ---
 
 # Why Choose Eternalgy?

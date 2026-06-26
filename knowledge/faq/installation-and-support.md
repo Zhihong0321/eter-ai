@@ -7,6 +7,16 @@ questions:
   - What support will I receive after installation?
   - Who supports me after installation?
   - What happens after my solar system is installed?
+  - How long does installation take?
+  - When will my system be installed?
+  - Who installs the system?
+  - Do you outsource installation?
+  - What after sales support do you provide?
+  - How do I get support after installation?
+  - What maintenance is included?
+  - Do you provide maintenance?
+  - What is the installation process?
+  - Walk me through the installation
 ---
 
 # Who Will Handle My Installation and Support?

@@ -29,7 +29,7 @@
       "topic": "install-solar-now",
       "title": "Why Should I Install Solar Now?",
       "summary": "FAQ covering current rebate deadlines and GITA expiry urgency.",
-      "tokens": 267,
+      "tokens": 345,
       "loadOrder": 106
     },
     {
@@ -37,7 +37,7 @@
       "topic": "installation-and-support",
       "title": "Who Will Handle My Installation and Support?",
       "summary": "FAQ covering the in-house installation team and after-sales support.",
-      "tokens": 201,
+      "tokens": 283,
       "loadOrder": 103
     },
     {
@@ -45,15 +45,39 @@
       "topic": "next-steps",
       "title": "What Is the Next Step?",
       "summary": "FAQ covering proposal acceptance, SEDA eATAP application, and financing.",
-      "tokens": 243,
+      "tokens": 331,
       "loadOrder": 111
+    },
+    {
+      "path": "faq/package-what-is-included.md",
+      "topic": "package-what-is-included",
+      "title": "What Is Included in the Solar Package?",
+      "summary": "Standard package contents, brand logo paths, and warranty coverage table for the Premium Package Card.",
+      "tokens": 437,
+      "loadOrder": 95
+    },
+    {
+      "path": "faq/payment-methods.md",
+      "topic": "payment-methods",
+      "title": "What Payment Methods Are Available?",
+      "summary": "Payment options including Online GIRO, credit card, and Credit Card EPP instalments across 7 banks with rates and tenures.",
+      "tokens": 455,
+      "loadOrder": 112
+    },
+    {
+      "path": "faq/payment-terms-and-process.md",
+      "topic": "payment-terms-and-process",
+      "title": "What Are the Payment Terms and Installation Process?",
+      "summary": "8-step process from 5% deposit through SEDA approval, installation, and TNB ATAP activation with payment milestones.",
+      "tokens": 396,
+      "loadOrder": 113
     },
     {
       "path": "faq/product-selection-inverter.md",
       "topic": "product-selection-inverter",
       "title": "Why Was This Inverter Selected?",
       "summary": "FAQ covering SAJ string-inverter features and proposal-specific warranty confirmation.",
-      "tokens": 212,
+      "tokens": 288,
       "loadOrder": 108
     },
     {
@@ -61,7 +85,7 @@
       "topic": "product-selection-panel",
       "title": "Why Was This Solar Panel Selected?",
       "summary": "FAQ covering the selection of JinkoSolar Tiger Neo 3 for tropical climates.",
-      "tokens": 220,
+      "tokens": 295,
       "loadOrder": 107
     },
     {
@@ -69,7 +93,7 @@
       "topic": "proposal-value",
       "title": "Why Is This Proposal Worth the Price?",
       "summary": "FAQ covering the true value of safety and risk reduction over cheapest prices.",
-      "tokens": 241,
+      "tokens": 313,
       "loadOrder": 102
     },
     {
@@ -77,7 +101,7 @@
       "topic": "protection-and-warranty",
       "title": "What Protection and Warranty Will I Receive?",
       "summary": "FAQ covering 30-year panel warranty, 10-year inverter warranty, and MSIG insurance.",
-      "tokens": 237,
+      "tokens": 329,
       "loadOrder": 104
     },
     {
@@ -85,7 +109,7 @@
       "topic": "roof-protection",
       "title": "What Happens to My Roof?",
       "summary": "FAQ covering the dedicated roof specialist team and roof warranties.",
-      "tokens": 188,
+      "tokens": 256,
       "loadOrder": 105
     },
     {
@@ -93,7 +117,7 @@
       "topic": "saj-competitor-comparison",
       "title": "Saj Competitor Comparison",
       "summary": "",
-      "tokens": 436,
+      "tokens": 496,
       "loadOrder": 120
     },
     {
@@ -101,7 +125,7 @@
       "topic": "solar-savings-mechanism",
       "title": "How Will Solar Reduce My Electricity Bill?",
       "summary": "FAQ covering self-consumption, Net Billing, and unoffsettable charges.",
-      "tokens": 261,
+      "tokens": 340,
       "loadOrder": 110
     },
     {
@@ -109,7 +133,7 @@
       "topic": "system-suitability",
       "title": "Is This System Suitable for My Property?",
       "summary": "FAQ covering the Technical Site Assessment and load profile matching.",
-      "tokens": 235,
+      "tokens": 320,
       "loadOrder": 109
     },
     {
@@ -117,7 +141,7 @@
       "topic": "trust-and-credentials",
       "title": "Can I Trust Eternalgy?",
       "summary": "FAQ covering Eternalgy's CIDB G3, SEDA, and Maybank partner credentials.",
-      "tokens": 220,
+      "tokens": 311,
       "loadOrder": 101
     },
     {
@@ -125,7 +149,7 @@
       "topic": "why-choose-eternalgy",
       "title": "Why Choose Eternalgy?",
       "summary": "FAQ covering Eternalgy's in-house team, delivery speed, and zero subcontractor delays.",
-      "tokens": 260,
+      "tokens": 331,
       "loadOrder": 100
     },
     {

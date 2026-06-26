@@ -70,10 +70,14 @@ function configuredSalesConsultantWhatsAppUrl(): string {
 
 function renderSavingsHandoffHtml(whatsAppUrl: string): string {
   if (!whatsAppUrl) {
-    return '<p>Please WhatsApp your sales consultant for a personalised electricity-bill savings estimate.</p>';
+    return '<p>Sorry, I can’t calculate your exact savings here — the numbers depend on your actual electricity bill, roof, and usage. Please WhatsApp your sales consultant for a personalised electricity-bill savings estimate.</p>';
   }
 
-  return buildSalesConsultantWhatsAppCta(whatsAppUrl);
+  return [
+    '<p>Sorry, I can’t give you an exact savings figure here — your real savings depend on your actual electricity bill, roof size, and daily usage.</p>',
+    '<p>For an accurate, personalised estimate, please reach out to your sales consultant directly:</p>',
+    buildSalesConsultantWhatsAppCta(whatsAppUrl),
+  ].join('\n');
 }
 
 router.get('/api/invoices/search', async (req: Request, res: Response) => {
@@ -162,7 +166,10 @@ router.post('/api/chat', async (req: Request, res: Response) => {
 
   /* ---- 3. Approved curated FAQ check ---- */
   const curated = await findCuratedFaq(question);
-  if (curated !== null) {
+  // Skip curated FAQ for invoice users asking about their specific package —
+  // the LLM will use the actual invoice package description instead.
+  const skipCurated = curated !== null && invoiceUid && curated.intent === 'package-contents';
+  if (curated !== null && !skipCurated) {
     res.json({
       curated: true,
       html: curated.html,

@@ -8,6 +8,15 @@ questions:
   - How do solar savings work?
   - Will solar eliminate my TNB bill?
   - What happens to excess solar energy?
+  - How does solar save money?
+  - How much will I save?
+  - How much will my bill go down?
+  - Will solar reduce my TNB bill?
+  - How does net billing work in Malaysia?
+  - What is Solar ATAP export?
+  - Can solar eliminate my electricity bill?
+  - How does solar offset my bill?
+  - What is self-consumption?
 ---
 
 # How Will Solar Reduce My Electricity Bill?

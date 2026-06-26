@@ -7,6 +7,15 @@ questions:
   - Is this the right solar system size for me?
   - How do you know this system suits my home?
   - Was this proposal designed for my property?
+  - Will solar work on my house?
+  - Is my house suitable for solar?
+  - What system size do I need?
+  - Is the system size correct?
+  - How big a system do I need?
+  - What is the right solar system for me?
+  - Can my electrical panel handle solar?
+  - Is this system big enough?
+  - Will solar work for my usage?
 ---
 
 # Is This System Suitable for My Property?

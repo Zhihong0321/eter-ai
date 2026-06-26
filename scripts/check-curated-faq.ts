@@ -30,10 +30,13 @@ const expectedThemes: Record<string, string> = {
   'system-suitability': 'suitability',
   'solar-savings-mechanism': 'savings',
   'next-steps': 'next',
+  'package-what-is-included': 'value',
+  'payment-methods': 'payment',
+  'payment-terms-and-process': 'journey',
 };
 
-if (entries.length !== 13) {
-  throw new Error(`Expected 13 curated FAQs, found ${entries.length}.`);
+if (entries.length !== 16) {
+  throw new Error(`Expected 16 curated FAQs, found ${entries.length}.`);
 }
 
 for (const entry of entries) {

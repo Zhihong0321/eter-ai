@@ -8,6 +8,16 @@ questions:
   - Are solar rebates still available?
   - When does the SuRIA Home rebate end?
   - Should I install solar in 2026?
+  - Is there a government rebate for solar?
+  - What is SuRIA Home?
+  - SuRIA Home rebate
+  - Solar rebate Malaysia
+  - How much is the solar rebate?
+  - Is the rebate still available?
+  - What is GITA?
+  - Should I install now or wait?
+  - Will the rebate run out?
+  - How do I claim the solar rebate?
 ---
 
 # Why Should I Install Solar Now?

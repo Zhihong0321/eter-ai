@@ -67,10 +67,23 @@ function normalise(value: string): string {
     .trim();
 }
 
+/**
+ * Light stemmer so singular/plural and common verb endings match.
+ * Applied symmetrically to query and candidate, so over-stemming
+ * (e.g. "process" -> "proces") is harmless as long as it is consistent.
+ */
+function stem(word: string): string {
+  if (word.length > 4 && word.endsWith('ies')) return `${word.slice(0, -3)}y`;
+  if (word.length > 4 && word.endsWith('es')) return word.slice(0, -2);
+  if (word.length > 3 && word.endsWith('s') && !word.endsWith('ss')) return word.slice(0, -1);
+  return word;
+}
+
 function contentTokens(value: string): string[] {
   return normalise(value)
     .split(' ')
-    .filter((word) => word.length > 1 && !STOP_WORDS.has(word));
+    .filter((word) => word.length > 1 && !STOP_WORDS.has(word))
+    .map(stem);
 }
 
 function parseFrontmatter(markdown: string): {
@@ -175,11 +188,19 @@ interface LogoTile {
   logo?: string;
 }
 
+interface CarouselSlide {
+  icon: string;
+  title: string;
+  body: string;
+}
+
 interface PresentationSpec {
   eyebrow: string;
   theme: string;
   hero?: string;
+  brandLogo?: { src: string; alt: string };
   showcase?: boolean;
+  carousel?: CarouselSlide[];
   metrics?: PresentationItem[];
   cards?: PresentationItem[];
   steps?: PresentationItem[];
@@ -196,19 +217,20 @@ interface PresentationSpec {
 
 const PRESENTATIONS: Record<string, PresentationSpec> = {
   'why-choose-eternalgy': {
-    eyebrow: 'One team. Full accountability.',
+    eyebrow: 'Why Eternalgy',
     theme: 'company',
     showcase: true,
-    hero: 'Choose a solar partner built to protect the entire investment—not only install the equipment.',
+    hero: 'Choose a solar partner built on real experience, uncompromising standards, roof expertise, and nationally recognised authority.',
     metrics: [
-      { value: '500+', title: 'installations', body: 'Across Peninsular Malaysia' },
+      { value: '1100+', title: 'installations', body: 'Across Peninsular Malaysia' },
       { value: '140', title: 'projects in one month', body: 'Proven delivery capacity' },
-      { value: '1', title: 'accountable team', body: 'From roof to after-sales' },
+      { value: '20+', title: 'years system life', body: 'Built to last, not just installed' },
     ],
     cards: [
-      { title: 'In-house delivery', body: 'Direct control over workmanship, safety, and scheduling.' },
-      { title: 'Roof expertise', body: 'Specialists assess and manage the structure supporting your system.' },
-      { title: 'Protection included', body: 'Defined equipment, workmanship, roof, and insurance coverage.' },
+      { title: 'Experience', body: 'Battle-tested across terraced houses, villas, farms, and factories. What we deliver is system design and engineering refined through countless real-world projects — an invisible asset you cannot buy from a brochure.' },
+      { title: 'No Compromise', body: 'True value is safety. True expense is risk. We use components with extra-long durability and additional safety redundancy. We do not sell the lowest price — we deliver absolute safety across the full 20+ year system life.' },
+      { title: 'Roof Expertise', body: 'We understand not just solar, but roofs. Our dedicated in-house roof expert team minimises installation damage, handles professional roof repairs and reinforcement, and ensures your solar system coexists perfectly with your building.' },
+      { title: 'Authority', body: 'SEDA registered provider, CIDB G3 contractor, Maybank Exclusive Solar PV Installer, SAJ Sole Distributor of Malaysia, SHRDC CoE Partner, and Malaysia Golden Bull Award — Outstanding Bull 2025.' },
     ],
     closing: 'A better solar decision is one you can still feel confident about years after installation.',
   },
@@ -220,7 +242,7 @@ const PRESENTATIONS: Record<string, PresentationSpec> = {
     metrics: [
       { value: 'G3', title: 'CIDB registered', body: 'Category B / CE / ME' },
       { value: 'SEDA', title: 'registered provider', body: 'Solar PV Service Provider' },
-      { value: '500+', title: 'installations', body: 'Across Peninsular Malaysia' },
+      { value: '1100+', title: 'installations', body: 'Across Peninsular Malaysia' },
     ],
     cards: [
       { title: 'Documented registrations', body: 'Registration details are available for client verification.' },
@@ -304,6 +326,7 @@ const PRESENTATIONS: Record<string, PresentationSpec> = {
   'product-selection-panel': {
     eyebrow: 'Built for Malaysian rooftops',
     theme: 'panel',
+    brandLogo: { src: '/logo/jinko-logo.svg', alt: 'JinkoSolar' },
     hero: 'Tiger Neo 3.0 is selected to handle heat, humidity, cloud cover, and limited roof space.',
     metrics: [
       { value: '-0.29%', title: 'per °C', body: 'Lower heat-related power loss' },
@@ -320,18 +343,40 @@ const PRESENTATIONS: Record<string, PresentationSpec> = {
   'product-selection-inverter': {
     eyebrow: 'The system control centre',
     theme: 'inverter',
-    hero: 'The proposed SAJ inverter converts panel output, protects the system, and keeps performance visible.',
-    flow: [
-      { value: 'DC', title: 'Solar panels', body: 'Generate direct-current electricity' },
-      { value: 'SAJ', title: 'Smart conversion', body: 'Converts and manages usable power' },
-      { value: 'AC', title: 'Your property', body: 'Uses grid-compatible electricity' },
+    hero: 'The proposed SAJ inverter converts panel output, protects the system, and keeps performance always visible.',
+    carousel: [
+      {
+        icon: '98.2%',
+        title: 'Peak Conversion Efficiency',
+        body: 'Converts your solar DC to grid-compatible AC with minimal energy loss — maximising every ringgit of generation.',
+      },
+      {
+        icon: '29dB',
+        title: 'Ultra-Quiet Operation',
+        body: 'Fanless natural convection cooling on residential models runs below 29 dB — quieter than a library.',
+      },
+      {
+        icon: 'SPD',
+        title: 'Built-In Surge Protection',
+        body: 'Integrated Type II DC surge protection guards the entire system against lightning strikes and voltage spikes.',
+      },
+      {
+        icon: '10YR',
+        title: '10-Year Product Warranty',
+        body: 'Every proposed SAJ string inverter carries a full 10-year product warranty — backed by Eternalgy as distributor.',
+      },
+      {
+        icon: 'APP',
+        title: 'Live System Monitoring',
+        body: 'The elekeeper app shows real-time solar generation, household consumption, and grid export in one view.',
+      },
+      {
+        icon: '85+',
+        title: 'Global Proven Track Record',
+        body: 'SAJ established 2005, operating in 85+ countries with 9 GW annual inverter manufacturing capacity.',
+      },
     ],
-    cards: [
-      { title: 'Quiet operation', body: 'Fanless or low-noise operation on applicable residential models.' },
-      { title: 'Electrical protection', body: 'Integrated surge protection varies by the selected model.' },
-      { title: 'Live visibility', body: 'App-based monitoring helps you follow system performance.' },
-    ],
-    note: 'The exact model, protection features, monitoring setup, and 10-year warranty terms are confirmed in your proposal.',
+    note: 'The exact model, protection features, and warranty terms are confirmed in your signed proposal.',
   },
   'saj-competitor-comparison': {
     eyebrow: 'An honest recommendation',
@@ -393,6 +438,28 @@ const PRESENTATIONS: Record<string, PresentationSpec> = {
     },
     note: 'Savings vary by system size, tariff, weather, daytime use, export rate, and programme rules.',
   },
+  'package-what-is-included': {
+    eyebrow: 'Complete rooftop solar system',
+    theme: 'value',
+    brandLogo: { src: '/logo/eternalgy.png', alt: 'Eternalgy Solar' },
+    hero: 'Your package covers everything — design, government applications, installation, and commissioning — with full warranty and insurance protection included.',
+    metrics: [
+      { value: '12 yr', title: 'Panel product warranty', body: 'JinkoSolar product warranty' },
+      { value: '30 yr', title: 'Panel power warranty', body: 'JinkoSolar linear guarantee' },
+      { value: '10 yr', title: 'Inverter warranty', body: 'SAJ product warranty' },
+      { value: '3 yr', title: 'Workmanship', body: '+ 1-yr roof-leak cover' },
+    ],
+    cards: [
+      { value: '11×', title: '650W JinkoSolar TIGER NEO 3.0', body: 'N-type TOPCon — highest tropical efficiency, 30-yr linear power warranty' },
+      { value: '1×', title: 'SAJ R6 5kW 3-Phase Inverter', body: '98.2% peak efficiency, built-in surge protection' },
+      { title: 'SEDA ATAP Application', body: 'Full grid-export application — Eternalgy handles all paperwork' },
+      { title: 'TNB Smart Meter Application', body: 'Required for net-billing; submitted on your behalf' },
+      { title: 'System & Electrical Design', body: 'Solar architecture design + electrical system design' },
+      { title: 'Roof Survey & Installation', body: 'Site surveying + roof panel installation + electrical works' },
+      { title: 'SkyLift Access Equipment', body: 'Safe motorised rooftop access for installation' },
+    ],
+    note: '3-year MSIG all-risk solar system insurance included from day one. Also includes 12-year JinkoSolar product warranty. Final coverage follows your signed proposal.',
+  },
   'next-steps': {
     eyebrow: 'A clear path forward',
     theme: 'next',
@@ -404,6 +471,45 @@ const PRESENTATIONS: Record<string, PresentationSpec> = {
       { value: '04', title: 'Deliver', body: 'After approvals and site conditions are confirmed, coordinate installation and commissioning.' },
     ],
     closing: 'Your next action is simple: ask our team to walk you through the final proposal and acceptance requirements.',
+  },
+  'payment-methods': {
+    eyebrow: 'Flexible payment options',
+    theme: 'payment',
+    hero: 'Pay by Online GIRO, cash deposit, credit card, or spread the cost with a Credit Card Easy Payment Plan (EPP) through 7 participating banks.',
+    cards: [
+      { title: 'Online GIRO / Cash Deposit', body: 'Direct bank transfer or over-the-counter cash deposit to Eternalgy.' },
+      { title: 'Visa / Mastercard', body: 'One-time full payment by credit or debit card.' },
+      { title: 'Credit Card EPP', body: 'Spread payments over 6 to 60 months through selected banks at fixed annual interest rates.' },
+    ],
+    compare: {
+      leftTitle: 'EPP — Lower rates',
+      leftItems: [
+        'Maybank: 6m 2.50% · 12m 3.50% · 24m 5.50% · 36m 6.00% · 48m 8.00% · 60m 10.00%',
+        'Public Bank: 6m 2.50% · 12m 3.50% · 18m 4.00% · 24m 5.50% · 36m 6.00% · 48m 8.00% · 60m 10.00%',
+        'UOB: 6m 2.50% · 12m 3.50% · 24m 5.50% · 48m 8.50%',
+        'CIMB: 6m 2.50% · 12m 3.50%',
+      ],
+      rightTitle: 'EPP — Other banks',
+      rightItems: [
+        'Hong Leong: 12m 3.50% · 24m 5.50% · 36m 6.00% · 48m 8.00% · 60m 10.00%',
+        'OCBC: 6m 4.00% · 12m 5.00% · 18m 6.00% · 24m 7.00% · 36m 8.00% · 48m 9.00%',
+        'AmBank: 24m 7.00% · 36m 9.00%',
+      ],
+    },
+    note: 'EPP rates are per annum. Available tenures and rates vary by bank and card type. Confirm with your bank before proceeding.',
+  },
+  'payment-terms-and-process': {
+    eyebrow: '3 payments. We handle everything else.',
+    theme: 'journey',
+    hero: 'You only act at three milestones. Eternalgy manages all government applications, scheduling, and paperwork in between.',
+    steps: [
+      { value: '① 5%', title: 'Confirm your order — we start immediately', body: 'Pay the 5% deposit to lock in your proposal. Eternalgy submits the SEDA Solar ATAP application for you the same week — no action needed from you.' },
+      { value: '✓', title: 'SEDA approves your application', body: 'Eternalgy tracks and manages the approval process. Once SEDA gives the green light, we contact you to move to the next step.' },
+      { value: '② 60%', title: 'Installation payment — your system goes in', body: 'Pay 60% and your installation date is confirmed. Our self-operated team installs panels, inverter, and full electrical works — typically completed within 2–4 weeks.' },
+      { value: '③ 35%', title: 'Final payment — only after your system is complete', body: 'You pay the remaining 35% only after installation is finished and handed over to you. Nothing to pay until you are satisfied.' },
+      { value: '✓', title: 'TNB activates your ATAP export meter', body: 'Eternalgy submits the TNB meter change application on your behalf. Once TNB completes the switch, your system is fully live and earning Solar ATAP credits.' },
+    ],
+    note: 'SEDA and TNB approval timelines are set by the government — Eternalgy manages all submissions and follows up on your behalf throughout.',
   },
 };
 
@@ -449,19 +555,21 @@ function renderCompare(compare: NonNullable<PresentationSpec['compare']>): strin
 const REPRESENTED_BRANDS = [
   { name: 'Eternalgy', detail: 'In-house solar PV delivery', logo: '/logo/eternalgy.png' },
   { name: 'JinkoSolar', detail: 'Panel warranty and performance', logo: '/logo/jinko-logo.svg' },
-  { name: 'SAJ', detail: 'Inverter supply and support', logo: '/logo/saj-logo.jpg' },
-  { name: 'Maybank', detail: 'Exclusive financing partner' },
+  { name: 'SAJ', detail: 'Inverter supply and support', logo: '/logo/SAJ-LOGO.jpg' },
+  { name: 'Maybank', detail: 'Exclusive financing partner', logo: '/logo/maybank.png' },
   { name: 'MSIG', detail: 'Solar all-risk insurance' },
   { name: 'SHRDC', detail: 'CoE industry partner' },
 ] satisfies LogoTile[];
 
 const CERTIFICATIONS = [
   { name: 'CIDB G3', detail: 'Registered contractor', logo: '/logo/cidb-registered.png' },
-  { name: 'SEDA RPVSP', detail: 'Solar PV Service Provider', logo: '/logo/seda-malaysia.png' },
-  { name: 'SEDA Investor', detail: 'Solar PV Investor', logo: '/logo/seda-malaysia.png' },
-  { name: 'MyHIJAU', detail: 'SAJ certification MyHS00025/25', logo: '/logo/myhijau.jpg' },
-  { name: 'Golden Bull', detail: 'Malaysia award recipient' },
-  { name: 'TÜV Rheinland', detail: 'Class A+ anti-shading panel certification' },
+  { name: 'SEDA RPVSP', detail: 'Solar PV Service Provider', logo: '/logo/Seda-Malaysia001.png' },
+  { name: 'SEDA Investor', detail: 'Solar PV Investor', logo: '/logo/Seda-Malaysia001.png' },
+  { name: 'SHRDC CoE', detail: 'Selangor Human Resource Dev Center CoE Partner' },
+  { name: 'MPiA', detail: 'Member of MPiA' },
+  { name: 'MyHIJAU', detail: 'SAJ certification MyHS00025/25', logo: '/logo/myhijau_plain.jpg' },
+  { name: 'Golden Bull', detail: 'Outstanding Bull 2025', logo: '/logo/golden-bull.png' },
+  { name: 'TÜV Rheinland', detail: 'Class A+ anti-shading panel certification', logo: '/logo/tuv-rheinland.png' },
 ] satisfies LogoTile[];
 
 function renderLogoTiles(items: LogoTile[]): string {
@@ -500,6 +608,36 @@ function renderBrandShowcase(): string {
   ].join('');
 }
 
+function renderCarousel(slides: CarouselSlide[]): string {
+  const slideHtml = slides.map((s, i) => {
+    const colorClass = `ans-carousel__slide--c${(i % 12) + 1}`;
+    return [
+      `<div class="ans-carousel__slide ${colorClass}">`,
+      `<span class="ans-carousel__slide-icon">${escapeHtml(s.icon)}</span>`,
+      `<p class="ans-carousel__slide-title">${escapeHtml(s.title)}</p>`,
+      `<p class="ans-carousel__slide-body">${escapeHtml(s.body)}</p>`,
+      '</div>',
+    ].join('');
+  }).join('');
+
+  const dotsHtml = slides.map((_, i) =>
+    `<span class="ans-carousel__dot${i === 0 ? ' ans-carousel__dot--active' : ''}"></span>`,
+  ).join('');
+
+  return [
+    '<div class="ans-carousel">',
+    '<div class="ans-carousel__track">',
+    slideHtml,
+    '</div>',
+    '<div class="ans-carousel__nav">',
+    '<button class="ans-carousel__prev" type="button" aria-label="Previous slide">&#8249;</button>',
+    `<div class="ans-carousel__dots">${dotsHtml}</div>`,
+    '<button class="ans-carousel__next" type="button" aria-label="Next slide">&#8250;</button>',
+    '</div>',
+    '</div>',
+  ].join('');
+}
+
 function renderPremiumHtml(id: string, title: string, answer: string): string {
   const spec = PRESENTATIONS[id];
   const sentences = splitSentences(answer);
@@ -527,9 +665,13 @@ function renderPremiumHtml(id: string, title: string, answer: string): string {
     `<section class="ans-premium ans-premium--${escapeHtml(spec.theme)}">`,
     '<div class="ans-premium__glow"></div>',
     `<p class="ans-premium__eyebrow">${escapeHtml(spec.eyebrow)}</p>`,
+    spec.brandLogo
+      ? `<div class="ans-premium__brand-row"><img src="${escapeHtml(spec.brandLogo.src)}" alt="${escapeHtml(spec.brandLogo.alt)}" class="ans-premium__brand-logo" loading="lazy" /></div>`
+      : '',
     `<h3 class="ans-premium__title">${escapeHtml(title)}</h3>`,
     `<p class="ans-premium__lead">${escapeHtml(lead)}</p>`,
     spec.showcase ? renderBrandShowcase() : '',
+    spec.carousel ? renderCarousel(spec.carousel) : '',
     spec.metrics
       ? `<div class="ans-premium__metrics">${renderItems(spec.metrics, 'ans-premium__metric')}</div>`
       : '',
@@ -565,17 +707,27 @@ export function parseCuratedFaq(markdown: string): CuratedFaqEntry {
   };
 }
 
+let faqCache: CuratedFaqEntry[] | null = null;
+
 export async function loadCuratedFaqEntries(): Promise<CuratedFaqEntry[]> {
+  if (faqCache) return faqCache;
+
   const files = (await readdir(FAQ_DIR))
     .filter((name) => name.endsWith('.md'))
     .sort();
 
-  return Promise.all(
+  faqCache = await Promise.all(
     files.map(async (name) => {
       const markdown = await readFile(resolve(FAQ_DIR, name), 'utf-8');
       return parseCuratedFaq(markdown);
     }),
   );
+
+  return faqCache;
+}
+
+export function clearCuratedFaqCache(): void {
+  faqCache = null;
 }
 
 function matchScore(question: string, candidate: string): number {
@@ -624,6 +776,7 @@ function isCompanyIntroQuestion(question: string): boolean {
     /\bwhy should we go with\b.*\beternalgy\b/,
     /\bwhy should i trust\b/,
     /\bcan i trust\b/,
+    /\btrustworthy\b/,
     /\breliable\b/,
     /\bcertification\b/,
     /\bcertified\b/,

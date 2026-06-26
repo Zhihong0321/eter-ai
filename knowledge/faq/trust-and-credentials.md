@@ -12,6 +12,19 @@ questions:
   - Are you certified?
   - Is Eternalgy reliable?
   - What certifications do you have?
+  - Is your company trustworthy?
+  - Is Eternalgy trustworthy?
+  - Are you trustworthy?
+  - What credentials do you have?
+  - Are you licensed?
+  - What license do you have?
+  - Are you CIDB registered?
+  - Are you SEDA registered?
+  - Are you SEDA approved?
+  - What awards have you won?
+  - Prove your credentials
+  - How do I verify you are legit?
+  - Are you a legitimate company?
 ---
 
 # Can I Trust Eternalgy?

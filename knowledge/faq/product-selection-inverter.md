@@ -7,6 +7,16 @@ questions:
   - What does the inverter do?
   - Is SAJ a good inverter?
   - Why did you choose SAJ?
+  - Tell me about the inverter
+  - What inverter is included?
+  - Is SAJ reliable?
+  - What is an inverter?
+  - How does the inverter work?
+  - Is SAJ a good brand?
+  - What model is the SAJ inverter?
+  - SAJ R6 inverter
+  - What is the inverter efficiency?
+  - Does the inverter have a monitoring app?
 ---
 
 # Why Was This Inverter Selected?
