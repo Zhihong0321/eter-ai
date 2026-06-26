@@ -1,0 +1,226 @@
+[
+  {
+    "question": "How does solar PV work?",
+    "answer": "<p>Solar photovoltaic (PV) panels convert sunlight directly into electricity using silicon cells. When photons strike the cell, they knock electrons loose from silicon atoms, creating a direct current (DC). An inverter then converts this DC into alternating current (AC) at 240V/50Hz for use in your home or export to the TNB grid.</p>",
+    "topic": "solar-pv",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "What is a solar panel?",
+    "answer": "<p>A solar panel is a flat, rectangular module made up of dozens of interconnected silicon solar cells sealed under tempered glass. Each cell absorbs sunlight and generates a small electrical voltage. Wired together, the cells produce enough DC electricity to power household appliances when connected to an inverter and the grid.</p>",
+    "topic": "solar-pv",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "What is an inverter?",
+    "answer": "<div class=\"ans-callout ans-callout--info\"><p>An <strong>inverter</strong> is the brain of a solar PV system. It converts the direct current (DC) produced by your solar panels into alternating current (AC) at 240V/50Hz, matching Malaysia's grid standard. Modern string inverters and micro-inverters also monitor system performance, detect faults, and optimise energy harvest from each panel.</p></div>",
+    "topic": "solar-pv",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "How much electricity can a solar system produce?",
+    "answer": "<table class=\"ans-compare\"><thead><tr><th>System Size</th><th>Annual Yield (approx.)</th></tr></thead><tbody><tr><td>5 kWp</td><td>6,000 – 7,000 kWh</td></tr><tr><td>6 kWp</td><td>7,200 – 8,400 kWh</td></tr><tr><td>8 kWp</td><td>9,600 – 11,200 kWh</td></tr><tr><td>10 kWp</td><td>12,000 – 14,000 kWh</td></tr></tbody></table><p>Actual output depends on roof orientation, shading, panel efficiency, and inverter performance. For electricity-bill savings estimates, WhatsApp your sales consultant for a personalised review.</p>",
+    "topic": "solar-pv",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "Do solar panels work on cloudy days?",
+    "answer": "<p>Yes, solar panels still generate electricity on cloudy days, though at reduced output — typically 10% to 25% of their peak capacity. Clouds filter but do not block all sunlight; diffused radiation still reaches the panels. Malaysia's tropical climate means even overcast days contribute to annual energy production, and the consistent year-round sunshine ensures your system performs well overall.</p>",
+    "topic": "solar-pv",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "How long do solar panels last?",
+    "answer": "<div class=\"ans-callout ans-callout--info\"><p>Quality solar panels are built to last <strong>25 to 30 years</strong> or more. Most manufacturers guarantee at least 80–87% of original output at year 25–30. Degradation is gradual — typically less than 0.5% per year after the first year — so panels continue producing meaningful electricity well beyond their warranty period. The inverter may need replacement once during the system's lifetime (around year 12–15).</p></div>",
+    "topic": "solar-pv",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "What maintenance do solar panels need?",
+    "answer": "<p>Solar panels require very little maintenance. Periodic cleaning to remove dust, bird droppings, and debris keeps output at peak levels — most homes need cleaning every 3 to 6 months. An annual professional inspection checks wiring, inverter health, and mounting integrity. Beyond that, solar PV systems have no moving parts and are designed for decades of trouble-free operation.</p>",
+    "topic": "solar-pv",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "How much space do I need for solar panels?",
+    "answer": "<table class=\"ans-compare\"><thead><tr><th>System Size</th><th>Panels (approx.)</th><th>Roof Area Needed</th></tr></thead><tbody><tr><td>5 kWp</td><td>10 – 12 panels</td><td>20 – 25 m2</td></tr><tr><td>6 kWp</td><td>12 – 14 panels</td><td>25 – 30 m2</td></tr><tr><td>8 kWp</td><td>16 – 18 panels</td><td>32 – 40 m2</td></tr><tr><td>10 kWp</td><td>20 – 22 panels</td><td>40 – 50 m2</td></tr></tbody></table><p>Higher-efficiency panels like the Jinko Tiger Neo 3 produce more power per square metre, so you need fewer panels for the same output. The exact count depends on panel wattage, roof angle, and shading conditions.</p>",
+    "topic": "solar-pv",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "What is Jinko Tiger Neo 3?",
+    "answer": "<section class=\"ans-slide\"><h3 class=\"ans-slide__title\">Jinko Tiger Neo 3 — Next-Generation Solar</h3><p class=\"ans-slide__body\">The Jinko Tiger Neo 3 is a <span class=\"ans-slide__highlight\">premium N-type TOPCon solar panel</span> manufactured by JinkoSolar, the world's largest solar panel producer. It delivers cell efficiency of 22.5% or higher, power output from 440W to 635W, and comes with a 15-year product warranty plus a 30-year performance warranty. Designed for Malaysian rooftops, it offers superior heat tolerance and long-term reliability.</p></section>",
+    "topic": "jinko-tiger-neo-3",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": true
+  },
+  {
+    "question": "What technology does Jinko Tiger Neo 3 use?",
+    "answer": "<p>The Jinko Tiger Neo 3 is built on <strong>N-type TOPCon</strong> (Tunnel Oxide Passivated Contact) cell technology, combined with <strong>half-cut cell</strong> design and <strong>SMBB</strong> (Super Multi-Busbar) architecture. This combination reduces electron recombination losses, improves shade tolerance, and minimises the impact of micro-cracks — delivering higher energy yield and better long-term performance than conventional P-type panels.</p>",
+    "topic": "jinko-tiger-neo-3",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": true
+  },
+  {
+    "question": "What is the efficiency of Jinko Tiger Neo 3?",
+    "answer": "<div class=\"ans-callout ans-callout--info\"><p>The Jinko Tiger Neo 3 achieves a <strong>cell efficiency of 22.5% or higher</strong>, placing it among the most efficient residential solar panels available. Its temperature coefficient of <strong>-0.29%/°C</strong> means minimal power loss in Malaysia's hot climate — outperforming many competitors whose panels lose more output as temperatures rise.</p></div>",
+    "topic": "jinko-tiger-neo-3",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": true
+  },
+  {
+    "question": "What warranty does Jinko Tiger Neo 3 have?",
+    "answer": "<table class=\"ans-compare\"><thead><tr><th>Warranty Type</th><th>Coverage</th><th>Duration</th></tr></thead><tbody><tr><td>Product Warranty</td><td>Manufacturing defects, materials, workmanship</td><td>15 years</td></tr><tr><td>Performance Warranty</td><td>Guaranteed minimum output</td><td>30 years</td></tr></tbody></table><p>At year 30, the panel is guaranteed to produce at least <strong>87.4%</strong> of its original rated output. Degradation is less than 1% in the first year, then just 0.4% per year thereafter — ensuring strong energy production for decades.</p>",
+    "topic": "jinko-tiger-neo-3",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": true
+  },
+  {
+    "question": "What is N-type TOPCon?",
+    "answer": "<div class=\"ans-callout ans-callout--info\"><p><strong>N-type TOPCon</strong> (Tunnel Oxide Passivated Contact) is an advanced solar cell architecture. Unlike conventional P-type cells, N-type silicon is inherently more resistant to light-induced degradation (LID) and light and elevated temperature induced degradation (LeTID). A thin tunnel oxide layer and polysilicon contact on the cell's rear surface dramatically reduce electron recombination, pushing cell efficiency above 22%.</p></div>",
+    "topic": "jinko-tiger-neo-3",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": true
+  },
+  {
+    "question": "How does Jinko Tiger Neo 3 compare to other panels?",
+    "answer": "<table class=\"ans-compare\"><thead><tr><th>Feature</th><th>Jinko Tiger Neo 3</th><th>Conventional P-Type</th></tr></thead><tbody><tr><td>Cell Type</td><td>N-type TOPCon</td><td>P-type PERC</td></tr><tr><td>Cell Efficiency</td><td>22.5%+</td><td>20 – 21%</td></tr><tr><td>Temperature Coefficient</td><td>-0.29%/°C</td><td>-0.35 to -0.40%/°C</td></tr><tr><td>First-Year Degradation</td><td>&lt; 1%</td><td>2 – 3%</td></tr><tr><td>Annual Degradation (after Y1)</td><td>0.4%</td><td>0.5 – 0.7%</td></tr><tr><td>Product Warranty</td><td>15 years</td><td>10 – 12 years</td></tr><tr><td>Performance Warranty</td><td>30 years (87.4%)</td><td>25 years (80%)</td></tr></tbody></table>",
+    "topic": "jinko-tiger-neo-3",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": true
+  },
+  {
+    "question": "What is SMBB technology?",
+    "answer": "<p><strong>SMBB (Super Multi-Busbar)</strong> technology uses more and thinner metal busbars on the solar cell surface to collect electricity. This reduces the distance electrons must travel, which lowers resistive losses. SMBB also makes panels more resilient to micro-cracks — if one busbar path is disrupted, adjacent busbars maintain current flow. The result is higher energy yield and improved long-term reliability.</p>",
+    "topic": "jinko-tiger-neo-3",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": true
+  },
+  {
+    "question": "Why choose Jinko Tiger Neo 3 for Malaysia?",
+    "answer": "<section class=\"ans-slide\"><h3 class=\"ans-slide__title\">Built for Malaysia's Climate</h3><p class=\"ans-slide__body\">The Jinko Tiger Neo 3 is an ideal match for Malaysian conditions. Its <span class=\"ans-slide__highlight\">-0.29%/°C temperature coefficient</span> means less power loss in tropical heat compared to conventional panels. The N-type TOPCon cells resist light-induced degradation that accelerates under strong equatorial sunlight. With half-cut cells providing better shade tolerance — important for homes with partial tree or building shadows — and a 30-year performance warranty, it delivers reliable, high-yield energy production for decades in Malaysia's climate.</p></section>",
+    "topic": "jinko-tiger-neo-3",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": true
+  },
+  {
+    "question": "What is NEM (Net Energy Metering)?",
+    "answer": "<div class=\"ans-callout ans-callout--info\"><p><strong>Net Energy Metering (NEM)</strong> is Malaysia's flagship solar incentive scheme administered by the Energy Commission (Suruhanjaya Tenaga). Under NEM, solar PV system owners export excess electricity to the TNB grid and receive credits at a one-to-one rate against their electricity bill. This effectively uses the grid as a virtual battery — when your panels produce more than you consume, your meter runs forward; when you draw from the grid at night, credits offset the cost.</p></div>",
+    "topic": "malaysia-solar-scheme",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "How does NEM work in Malaysia?",
+    "answer": "<ol class=\"ans-steps\"><li><strong>Generate.</strong> Your solar panels produce DC electricity, converted to AC by the inverter.</li><li><strong>Consume First.</strong> Your home uses solar electricity directly during daylight hours.</li><li><strong>Export Surplus.</strong> Excess electricity flows into the TNB grid and your bidirectional meter records the export.</li><li><strong>Import at Night.</strong> When solar production stops, you draw electricity from the grid as normal.</li><li><strong>Net Billing.</strong> At month-end, TNB bills only the net difference (consumption minus export). Under NEM 3.0, credits are valued at the prevailing tariff rate on a one-to-one basis.</li></ol>",
+    "topic": "malaysia-solar-scheme",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "Am I eligible for NEM?",
+    "answer": "<div class=\"ans-callout ans-callout--info\"><p>NEM is available to <strong>all TNB account holders</strong> across Peninsular Malaysia — residential, commercial, and industrial. To qualify, you need:</p><ul class=\"ans-list\"><li>A valid TNB account with no outstanding arrears</li><li>A suitable roof or ground area with adequate sunlight</li><li>An engagement with a SEDA-registered solar installer</li></ul><p>Residential systems typically range from 4 kWp to 10 kWp, depending on your roof area and electricity consumption.</p></div>",
+    "topic": "malaysia-solar-scheme",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "What is SelCo?",
+    "answer": "<p><strong>SelCo (Selangor Solar Programme)</strong> is a state-level initiative for Selangor residents that offers additional incentives on top of the national NEM scheme. SelCo provides rebates and streamlined approval processes, along with dedicated financing options to make solar adoption more accessible. If you live in Selangor, you benefit from both NEM credits and SelCo's extra support — ask our team to check your eligibility.</p>",
+    "topic": "malaysia-solar-scheme",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "How do I apply for solar in Malaysia?",
+    "answer": "<ol class=\"ans-steps\"><li><strong>Engage an Installer.</strong> Choose a SEDA-registered solar installer (like us) for a free site survey.</li><li><strong>Site Survey & Design.</strong> The installer assesses your roof, consumption, and designs an optimised system.</li><li><strong>NEM Application.</strong> Submit through the MyNEM portal — your installer handles all paperwork.</li><li><strong>Approval.</strong> The Energy Commission reviews and approves the application.</li><li><strong>Installation.</strong> Physical installation takes 1 to 3 days for a typical residential system.</li><li><strong>Commissioning.</strong> TNB installs a bidirectional meter, the system is tested, and you start generating.</li></ol><p>From first enquiry to commissioning, the full process typically takes <strong>4 to 8 weeks</strong>.</p>",
+    "topic": "malaysia-solar-scheme",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "How much can I save with solar?",
+    "answer": "<p>Bill-savings estimates are best confirmed by your sales consultant after reviewing your proposal and electricity usage.</p>",
+    "topic": "malaysia-solar-scheme",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": true
+  },
+  {
+    "question": "What is the typical solar system size for homes?",
+    "answer": "<p>Most Malaysian homes install between <strong>5 kWp and 8 kWp</strong>, which typically uses 10 to 18 panels depending on panel wattage. The right size depends on your monthly electricity bill, available roof area, and budget. A 6 kWp system is the most popular choice — it balances cost, savings, and roof space for most households. Our team will recommend the optimal size after a free site survey.</p>",
+    "topic": "malaysia-solar-scheme",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "How long does solar installation take?",
+    "answer": "<div class=\"ans-callout ans-callout--info\"><p>The <strong>physical installation</strong> of a residential solar PV system takes <strong>1 to 3 days</strong>. However, the full process from enquiry to power-on includes site survey, system design, NEM application approval, installation, and commissioning — typically spanning <strong>4 to 8 weeks</strong> in total. We handle every step, so you can sit back while we manage the timeline.</p></div>",
+    "topic": "malaysia-solar-scheme",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "Why should I choose your company?",
+    "answer": "<section class=\"ans-slide\"><h3 class=\"ans-slide__title\">Your Trusted Solar Partner</h3><p class=\"ans-slide__body\">We are a <span class=\"ans-slide__highlight\">SEDA-certified solar installer</span> with over 500 successful installations across Peninsular Malaysia. Our team combines technical expertise with genuine customer care — we handle everything from site survey to NEM application to commissioning. With flexible financing options, comprehensive after-sales support, and a track record of customer satisfaction, we make going solar simple and rewarding.</p></section>",
+    "topic": "company",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "What services do you provide?",
+    "answer": "<ol class=\"ans-steps\"><li><strong>Site Survey.</strong> Free assessment of your property's solar potential.</li><li><strong>System Design.</strong> Custom-designed system optimised for your roof and electricity consumption.</li><li><strong>NEM Application.</strong> We handle the entire application process through the MyNEM portal.</li><li><strong>Installation.</strong> Professional installation by our certified team.</li><li><strong>Commissioning.</strong> Full system testing, grid connection, and handover.</li><li><strong>After-Sales Support.</strong> Monitoring, maintenance, and responsive technical assistance.</li></ol>",
+    "topic": "company",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "Do you offer financing?",
+    "answer": "<p>Yes. We partner with leading banks and financial institutions to offer flexible financing plans, including <strong>zero-down-payment options</strong> and instalment schemes of up to <strong>10 years</strong>. Our team will help you find the financing solution that best fits your budget, so cost is never a barrier to going solar.</p>",
+    "topic": "company",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "What after-sales support do you provide?",
+    "answer": "<p>Our relationship does not end at installation. We provide comprehensive after-sales support including:</p><ul class=\"ans-list\"><li><strong>System Monitoring</strong> — Track your system's performance through our mobile app</li><li><strong>Technical Support</strong> — Responsive assistance for any issues, available six days a week</li><li><strong>Annual Maintenance</strong> — Scheduled checkups to ensure your system operates at peak performance</li><li><strong>Warranty Claims</strong> — We handle all manufacturer warranty claims on your behalf</li></ul>",
+    "topic": "company",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "How many installations have you done?",
+    "answer": "<div class=\"ans-callout ans-callout--info\"><p>We have completed over <strong>500 successful installations</strong> across Peninsular Malaysia — covering residential homes, commercial buildings, and industrial properties. Each project strengthens our expertise and deepens our understanding of what works best in Malaysia's tropical climate. Our growing portfolio reflects the trust homeowners and businesses place in us.</p></div>",
+    "topic": "company",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "Are you a certified installer?",
+    "answer": "<div class=\"ans-callout ans-callout--info\"><p>Yes. We are a <strong>certified and licensed solar PV installer</strong> registered with SEDA (Sustainable Energy Development Authority) Malaysia. We meet all regulatory requirements set by the Energy Commission and SEDA. Our team includes certified solar PV designers and installers, and we hold full insurance coverage and workmanship guarantees on every project.</p></div>",
+    "topic": "company",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "What is your installation process?",
+    "answer": "<ol class=\"ans-steps\"><li><strong>Site Survey.</strong> Free assessment of your roof condition, orientation, shading, and electrical setup.</li><li><strong>System Design.</strong> Custom system designed to maximise your energy yield and savings.</li><li><strong>NEM Application.</strong> We submit and manage your application through the MyNEM portal.</li><li><strong>Installation.</strong> Our certified team completes the physical installation in 1 to 3 days.</li><li><strong>Commissioning.</strong> Full system testing, TNB meter installation, grid connection, and a thorough handover with training on monitoring your system.</li></ol>",
+    "topic": "company",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  },
+  {
+    "question": "Do you handle the NEM application?",
+    "answer": "<p>Yes, we handle the <strong>entire NEM application process</strong> on your behalf. From preparing documentation to submitting through the MyNEM portal, coordinating with TNB, and managing the bidirectional meter installation — we take care of everything. You stay informed at every step without dealing with any paperwork or bureaucracy yourself.</p>",
+    "topic": "company",
+    "generatedAt": "2026-06-25T10:00:00.000Z",
+    "stale": false
+  }
+]

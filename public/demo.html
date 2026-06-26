@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar PV Q&A — Component Demo</title>
+  <link rel="stylesheet" href="/src/styles/components.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #F9FAFB;
+      color: #1F2937;
+      line-height: 1.5;
+    }
+
+    /* Demo nav */
+    .demo-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 24px;
+      background: #111827;
+      color: #F9FAFB;
+    }
+    .demo-nav__title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #F59E0B;
+      margin-right: auto;
+    }
+    .demo-nav a {
+      color: #D1D5DB;
+      text-decoration: none;
+      font-size: 0.875rem;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid #374151;
+      transition: background 0.15s, color 0.15s;
+    }
+    .demo-nav a:hover {
+      background: #1F2937;
+      color: #F9FAFB;
+    }
+
+    /* Demo wrapper */
+    .demo-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 16px 80px;
+    }
+
+    .demo-section {
+      margin-bottom: 48px;
+    }
+
+    .demo-section__label {
+      display: inline-block;
+      padding: 3px 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6B7280;
+      background: #E5E7EB;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+    }
+
+    .invoice-demo {
+      margin-bottom: 40px;
+      padding: 24px;
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(17, 24, 39, 0.06);
+    }
+    .invoice-demo h1 {
+      font-size: 1.35rem;
+      margin-bottom: 6px;
+    }
+    .invoice-demo__intro {
+      color: #6B7280;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+    .invoice-search {
+      display: flex;
+      gap: 10px;
+    }
+    .invoice-search input {
+      flex: 1;
+      min-width: 0;
+      padding: 11px 13px;
+      border: 1px solid #D1D5DB;
+      border-radius: 8px;
+      font: inherit;
+      outline: none;
+    }
+    .invoice-search input:focus {
+      border-color: #F59E0B;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.14);
+    }
+    .invoice-search button,
+    .invoice-result__apply {
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 8px;
+      background: #F59E0B;
+      color: #FFFFFF;
+      font: inherit;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    .invoice-search button:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
+    .invoice-search-status {
+      min-height: 22px;
+      margin-top: 10px;
+      color: #6B7280;
+      font-size: 0.82rem;
+    }
+    .invoice-search-status--error { color: #DC2626; }
+    .invoice-results {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .invoice-result {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid #E5E7EB;
+      border-radius: 10px;
+      background: #F9FAFB;
+    }
+    .invoice-result__number {
+      color: #6B7280;
+      font-size: 0.8rem;
+      margin-top: 2px;
+    }
+    .invoice-result__customer {
+      font-weight: 750;
+      color: #111827;
+      font-size: 0.96rem;
+    }
+    .invoice-result__package {
+      margin-top: 2px;
+      color: #D97706;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .invoice-result__description {
+      margin-top: 5px;
+      color: #6B7280;
+      font-size: 0.78rem;
+      white-space: pre-line;
+    }
+    @media (max-width: 640px) {
+      .demo-nav { overflow-x: auto; }
+      .invoice-search { flex-direction: column; }
+      .invoice-result { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="demo-nav">
+  <span class="demo-nav__title">Solar PV Q&A</span>
+  <a href="/">Chat</a>
+  <a href="/admin">Admin</a>
+  <a href="#section-heading">Heading</a>
+  <a href="#section-list">List</a>
+  <a href="#section-callout">Callout</a>
+  <a href="#section-card">Card</a>
+  <a href="#section-compare">Compare</a>
+  <a href="#section-steps">Steps</a>
+  <a href="#section-slide">Slide</a>
+  <a href="#section-cta">CTA</a>
+</nav>
+
+<div class="demo-wrapper">
+
+  <section class="invoice-demo" aria-labelledby="invoice-demo-title">
+    <h1 id="invoice-demo-title">Run a Package-Aware Conversation</h1>
+    <p class="invoice-demo__intro">
+      Search by customer name, invoice number, or invoice UID, then apply the signed package to the AI conversation.
+    </p>
+    <form class="invoice-search" id="invoice-search-form">
+      <input
+        id="invoice-search-input"
+        type="search"
+        placeholder="Customer name, invoice number, or UID"
+        aria-label="Customer name, invoice number, or UID"
+        autocomplete="off"
+      >
+      <button id="invoice-search-btn" type="submit">Search Invoice</button>
+    </form>
+    <div class="invoice-search-status" id="invoice-search-status" role="status"></div>
+    <div class="invoice-results" id="invoice-results"></div>
+  </section>
+
+  <!-- ============================================================
+       .ans-h — Section Heading
+       ============================================================ -->
+  <div class="demo-section" id="section-heading">
+    <span class="demo-section__label">.ans-h</span>
+    <h2 class="ans-h">Solar Panel Efficiency Explained</h2>
+    <p style="margin-top:8px; font-size:0.95rem; color:#6B7280; line-height:1.7;">
+      Modern monocrystalline panels achieve 20-22% efficiency, converting roughly one-fifth of incident sunlight into electricity.
+      Polycrystalline panels sit around 15-17%, while thin-film technologies range from 10-13%.
+    </p>
+    <h2 class="ans-h" style="margin-top:32px;">Why Does Panel Wattage Matter?</h2>
+    <p style="margin-top:8px; font-size:0.95rem; color:#6B7280; line-height:1.7;">
+      Higher wattage panels produce more power per square metre, reducing the number of panels needed for a given system size.
+    </p>
+  </div>
+
+  <!-- ============================================================
+       .ans-list — Bulleted List
+       ============================================================ -->
+  <div class="demo-section" id="section-list">
+    <span class="demo-section__label">.ans-list</span>
+    <h2 class="ans-h">Key Benefits of Solar PV</h2>
+    <ul class="ans-list">
+      <li><strong>Lower electricity bills</strong> — Generate your own power and reduce grid dependence by up to 70%.</li>
+      <li><strong>Environmental impact</strong> — A typical 6.6 kW system offsets roughly 7 tonnes of CO₂ per year.</li>
+      <li><strong>Property value</strong> — Homes with solar sell for 4-6% more on average (Zillow, 2023).</li>
+      <li><strong>Government incentives</strong> — STCs (Small-scale Technology Certificates) can reduce upfront cost by $3,000-$5,000.</li>
+      <li><strong>Energy independence</strong> — Pair with a battery to store excess generation for night-time use.</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================
+       .ans-callout — Info / Warn
+       ============================================================ -->
+  <div class="demo-section" id="section-callout">
+    <span class="demo-section__label">.ans-callout</span>
+    <h2 class="ans-h">Understanding Your Quote</h2>
+
+    <div class="ans-callout ans-callout--info">
+      <div>
+        <strong>Good to know</strong><br>
+        Most residential quotes in Australia range from $4,500 to $9,000 for a 6.6 kW system after STC rebates.
+        Always compare at least three quotes before committing.
+      </div>
+    </div>
+
+    <div class="ans-callout ans-callout--warn">
+      <div>
+        <strong>Watch out</strong><br>
+        Avoid quotes that seem significantly cheaper than the market average. Low-cost systems may use Tier 2 panels or
+        inverters with shorter warranties, costing more in the long run.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       .ans-card — Fact Card
+       ============================================================ -->
+  <div class="demo-section" id="section-card">
+    <span class="demo-section__label">.ans-card</span>
+    <h2 class="ans-h">Quick Facts</h2>
+
+    <div class="ans-card">
+      <div class="ans-card__title">6.6 kW System</div>
+      <div class="ans-card__body">
+        The most popular residential size in Australia. Produces approximately 24-26 kWh per day depending on
+        location and orientation. Typically pays for itself in 3-5 years.
+      </div>
+    </div>
+
+    <div class="ans-card">
+      <div class="ans-card__title">Battery Storage</div>
+      <div class="ans-card__body">
+        A 10 kWh battery (e.g. Tesla Powerwall 3) can store enough energy to power an average home through the evening.
+        Expect to pay $10,000-$14,000 installed.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       .ans-compare — Comparison Table
+       ============================================================ -->
+  <div class="demo-section" id="section-compare">
+    <span class="demo-section__label">.ans-compare</span>
+    <h2 class="ans-h">Panel Type Comparison</h2>
+
+    <div class="ans-compare">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Monocrystalline</th>
+            <th>Polycrystalline</th>
+            <th>Thin-Film</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Efficiency</td>
+            <td>20-22%</td>
+            <td>15-17%</td>
+            <td>10-13%</td>
+          </tr>
+          <tr>
+            <td>Cost per watt</td>
+            <td>$0.30-$0.45</td>
+            <td>$0.20-$0.35</td>
+            <td>$0.15-$0.25</td>
+          </tr>
+          <tr>
+            <td>Lifespan</td>
+            <td>25-30 years</td>
+            <td>25 years</td>
+            <td>15-20 years</td>
+          </tr>
+          <tr>
+            <td>Space needed (6.6 kW)</td>
+            <td>~33 m²</td>
+            <td>~40 m²</td>
+            <td>~55 m²</td>
+          </tr>
+          <tr>
+            <td>Best for</td>
+            <td>Limited roof space</td>
+            <td>Budget installs</td>
+            <td>Commercial / curved surfaces</td>
+          </tr>
+          <tr>
+            <td>Temperature coefficient</td>
+            <td>-0.35%/°C</td>
+            <td>-0.40%/°C</td>
+            <td>-0.25%/°C</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       .ans-steps — Numbered Step List
+       ============================================================ -->
+  <div class="demo-section" id="section-steps">
+    <span class="demo-section__label">.ans-steps</span>
+    <h2 class="ans-h">How Solar Installation Works</h2>
+
+    <ol class="ans-steps">
+      <li>
+        <strong>Site assessment</strong>
+        A certified installer visits your property to evaluate roof orientation, shading, and electrical switchboard capacity.
+      </li>
+      <li>
+        <strong>System design</strong>
+        The installer designs a system tailored to your energy usage, roof space, and budget. You receive a detailed quote.
+      </li>
+      <li>
+        <strong>Approvals & paperwork</strong>
+        Your installer handles grid connection applications and STC rebate paperwork with the Clean Energy Regulator.
+      </li>
+      <li>
+        <strong>Installation day</strong>
+        A team of CEC-accredited electricians mounts the panels, installs the inverter, and connects everything to your switchboard.
+        Typically completed in 4-8 hours.
+      </li>
+      <li>
+        <strong>Inspection & activation</strong>
+        After a final electrical inspection, your distributor activates the system and you begin generating your own electricity.
+      </li>
+    </ol>
+  </div>
+
+  <!-- ============================================================
+       .ans-slide — Showcase / Pitch
+       ============================================================ -->
+  <div class="demo-section" id="section-slide">
+    <span class="demo-section__label">.ans-slide</span>
+
+    <div class="ans-slide">
+      <div class="ans-slide__title">Why Solar Makes Sense Right Now</div>
+      <div class="ans-slide__body">
+        With electricity prices rising <span class="ans-slide__highlight">23% since 2022</span> and panel costs at historic lows,
+        there has never been a better time to invest in solar. The average Australian household saves
+        <span class="ans-slide__highlight">$1,200 - $1,800 per year</span> on electricity bills with a quality 6.6 kW system.
+      </div>
+      <div style="margin-top: 24px;">
+        <a href="#" class="ans-cta">Get a Free Quote</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       .ans-cta — Call-to-Action Buttons
+       ============================================================ -->
+  <div class="demo-section" id="section-cta">
+    <span class="demo-section__label">.ans-cta</span>
+    <h2 class="ans-h">Ready to Go Solar?</h2>
+    <p style="margin-bottom: 20px; font-size: 0.95rem; color: #6B7280; line-height: 1.7;">
+      Take the next step towards energy independence. Our team connects you with pre-vetted, CEC-accredited installers in your area.
+    </p>
+    <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+      <a href="#" class="ans-cta">Get a Free Quote</a>
+      <a href="#" class="ans-cta ans-cta--secondary">Compare Prices</a>
+    </div>
+  </div>
+
+</div>
+
+<script src="/demo.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,483 @@
+/* ============================================================
+   Solar PV Q&A — Admin Dashboard
+   ============================================================ */
+
+/* ---------- Layout ---------- */
+.admin-container {
+  display: flex;
+  height: 100vh;
+  height: 100dvh;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  color: var(--color-text, #1F2937);
+  background-color: var(--color-bg, #F9FAFB);
+}
+
+/* ---------- Sidebar ---------- */
+.admin-sidebar {
+  flex-shrink: 0;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  background-color: #111827;
+  color: #D1D5DB;
+  border-right: 1px solid #1F2937;
+  overflow: hidden;
+  transition: width 0.25s ease;
+}
+
+.admin-sidebar__header {
+  padding: var(--sp-4, 16px) var(--sp-5, 20px);
+  border-bottom: 1px solid #1F2937;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2, 8px);
+}
+
+.admin-sidebar__logo {
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: 700;
+  color: #F59E0B;
+}
+
+.admin-sidebar__version {
+  font-size: var(--text-xs, 0.75rem);
+  color: #6B7280;
+  margin-left: auto;
+}
+
+/* ---------- File List (tree view) ---------- */
+.file-list {
+  flex: 1 1 0%;
+  overflow-y: auto;
+  padding: var(--sp-3, 12px) 0;
+}
+
+.file-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.file-list::-webkit-scrollbar-thumb {
+  background-color: #374151;
+  border-radius: 2px;
+}
+
+.file-category {
+  margin-bottom: var(--sp-2, 8px);
+}
+
+.file-category__label {
+  display: block;
+  padding: var(--sp-1, 4px) var(--sp-5, 20px);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9CA3AF;
+  user-select: none;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2, 8px);
+  padding: var(--sp-2, 8px) var(--sp-5, 20px) var(--sp-2, 8px) var(--sp-8, 32px);
+  font-size: var(--text-sm, 0.875rem);
+  color: #D1D5DB;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.file-item:hover {
+  background-color: #1F2937;
+  color: #F9FAFB;
+}
+
+.file-item--active {
+  background-color: #1F2937;
+  color: #F59E0B;
+  font-weight: 600;
+}
+
+.file-item__icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+}
+
+.file-item__name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-item__badge {
+  flex-shrink: 0;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: var(--radius-full, 9999px);
+  background-color: #374151;
+  color: #9CA3AF;
+}
+
+/* ---------- Header ---------- */
+.admin-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-3, 12px) var(--sp-5, 20px);
+  background-color: var(--color-card-bg, #FFFFFF);
+  border-bottom: 1px solid var(--color-border, #E5E7EB);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+}
+
+.admin-header__title {
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: 700;
+  color: var(--color-text, #1F2937);
+}
+
+.admin-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3, 12px);
+}
+
+.admin-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: var(--sp-2, 8px) var(--sp-4, 16px);
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 650;
+  color: #FFFFFF;
+  background: var(--color-primary, #F59E0B);
+  border: 1px solid var(--color-primary, #F59E0B);
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.admin-upload-btn:hover {
+  background: #D97706;
+  border-color: #D97706;
+}
+
+.admin-upload-btn:focus-visible {
+  outline: 3px solid rgba(245, 158, 11, 0.3);
+  outline-offset: 2px;
+}
+
+.admin-logout-btn {
+  padding: var(--sp-2, 8px) var(--sp-4, 16px);
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 500;
+  color: var(--color-text-secondary, #6B7280);
+  background: none;
+  border: 1px solid var(--color-border, #E5E7EB);
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.admin-logout-btn:hover {
+  background-color: var(--color-bg, #F9FAFB);
+  color: var(--color-text, #1F2937);
+}
+
+/* ---------- Main Content ---------- */
+.admin-main {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.admin-content {
+  flex: 1 1 0%;
+  overflow-y: auto;
+  padding: var(--sp-5, 20px);
+}
+
+/* ---------- Token Budget ---------- */
+.token-budget {
+  margin-bottom: var(--sp-5, 20px);
+}
+
+.token-budget__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--sp-2, 8px);
+}
+
+.token-budget__label {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 600;
+  color: var(--color-text, #1F2937);
+}
+
+.token-budget__value {
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text-secondary, #6B7280);
+}
+
+.token-budget__bar {
+  height: 10px;
+  background-color: var(--color-border, #E5E7EB);
+  border-radius: var(--radius-full, 9999px);
+  overflow: hidden;
+}
+
+.token-budget__fill {
+  height: 100%;
+  border-radius: var(--radius-full, 9999px);
+  transition: width 0.4s ease, background-color 0.3s ease;
+  /* Default green */
+  background-color: var(--color-secondary, #10B981);
+}
+
+/* Zone: green < 25k */
+.token-budget__fill--green {
+  background-color: var(--color-secondary, #10B981);
+}
+
+/* Zone: yellow 25k-35k */
+.token-budget__fill--yellow {
+  background-color: var(--color-primary, #F59E0B);
+}
+
+/* Zone: red > 35k */
+.token-budget__fill--red {
+  background-color: var(--color-warn, #EF4444);
+}
+
+.token-budget__zones {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--sp-1, 4px);
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #6B7280);
+}
+
+/* ---------- Editor Area ---------- */
+.editor-area {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+
+.editor-area textarea,
+.editor-area .CodeMirror,
+.editor-area__textarea {
+  flex: 1 1 0%;
+  width: 100%;
+  padding: var(--sp-4, 16px);
+  font-family: var(--font-mono, "SF Mono", "Fira Code", monospace);
+  font-size: var(--text-sm, 0.875rem);
+  line-height: 1.7;
+  color: var(--color-text, #1F2937);
+  background-color: var(--color-card-bg, #FFFFFF);
+  border: 1px solid var(--color-border, #E5E7EB);
+  border-radius: var(--radius-md, 8px);
+  resize: none;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.editor-area textarea:focus,
+.editor-area__textarea:focus {
+  border-color: var(--color-primary, #F59E0B);
+  box-shadow: 0 0 0 3px rgba(245,158,11,0.12);
+}
+
+/* ---------- FAQ List ---------- */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3, 12px);
+}
+
+.faq-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3, 12px);
+  padding: var(--sp-4, 16px);
+  background-color: var(--color-card-bg, #FFFFFF);
+  border: 1px solid var(--color-border, #E5E7EB);
+  border-radius: var(--radius-md, 8px);
+  transition: box-shadow 0.15s ease;
+}
+
+.faq-item:hover {
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+}
+
+.faq-item__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.faq-item__question {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 600;
+  color: var(--color-text, #1F2937);
+  margin: 0 0 var(--sp-1, 4px);
+}
+
+.faq-item__preview {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #6B7280);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.faq-item__meta {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--sp-1, 4px);
+}
+
+.faq-item__date {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #6B7280);
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-full, 9999px);
+}
+
+.status-badge--active {
+  background-color: #D1FAE5;
+  color: #065F46;
+}
+
+.status-badge--stale {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+
+.status-badge--error {
+  background-color: #FEE2E2;
+  color: #991B1B;
+}
+
+/* ---------- Sidebar Toggle (mobile) ---------- */
+.admin-sidebar-toggle {
+  display: none;
+  position: fixed;
+  bottom: var(--sp-4, 16px);
+  left: var(--sp-4, 16px);
+  z-index: 100;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #111827;
+  color: #F59E0B;
+  border: none;
+  cursor: pointer;
+  font-size: var(--text-lg, 1.125rem);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Responsive: Mobile ---------- */
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    z-index: 90;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+
+  .admin-sidebar--open {
+    transform: translateX(0);
+  }
+
+  .admin-sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 80;
+  }
+
+  .admin-sidebar--open ~ .admin-sidebar-overlay {
+    display: block;
+  }
+
+  .admin-sidebar-toggle {
+    display: flex;
+  }
+
+  .admin-header {
+    padding: var(--sp-3, 12px) var(--sp-4, 16px);
+  }
+
+  .admin-content {
+    padding: var(--sp-4, 16px);
+  }
+}
+
+@media (min-width: 769px) {
+  .admin-sidebar-toggle {
+    display: none !important;
+  }
+
+  .admin-sidebar-overlay {
+    display: none !important;
+  }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  .admin-sidebar,
+  .admin-sidebar-toggle,
+  .admin-header__actions,
+  .admin-sidebar-overlay {
+    display: none !important;
+  }
+
+  .admin-container {
+    display: block;
+  }
+
+  .admin-main {
+    overflow: visible;
+  }
+
+  .faq-item {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "files": [
+    {
+      "path": "basics/solar-pv.md",
+      "topic": "solar-pv",
+      "title": "Solar PV Basics",
+      "summary": "How solar panels generate electricity; system components.",
+      "tokens": 417,
+      "loadOrder": 10
+    },
+    {
+      "path": "company/eternalgy-company-overview.md",
+      "topic": "eternalgy-company-overview",
+      "title": "Eternalgy Solar: Your Trusted Malaysian Solar PV Partner",
+      "summary": "Eternalgy is a premium Malaysian solar PV provider distinguished by its engineering quality, in-house delivery team, and extensive certifications including CIDB G3 and SEDA registration. With 140 projects completed in a single month, they serve clients from residential terraces to industrial factories.",
+      "tokens": 581,
+      "loadOrder": 90
+    },
+    {
+      "path": "company/why-choose-us.md",
+      "topic": "why-choose-us",
+      "title": "Why Choose Us",
+      "summary": "Company credentials, services, and customer value.",
+      "tokens": 435,
+      "loadOrder": 40
+    },
+    {
+      "path": "faq/install-solar-now.md",
+      "topic": "install-solar-now",
+      "title": "Why Should I Install Solar Now?",
+      "summary": "FAQ covering current rebate deadlines and GITA expiry urgency.",
+      "tokens": 267,
+      "loadOrder": 106
+    },
+    {
+      "path": "faq/installation-and-support.md",
+      "topic": "installation-and-support",
+      "title": "Who Will Handle My Installation and Support?",
+      "summary": "FAQ covering the in-house installation team and after-sales support.",
+      "tokens": 201,
+      "loadOrder": 103
+    },
+    {
+      "path": "faq/next-steps.md",
+      "topic": "next-steps",
+      "title": "What Is the Next Step?",
+      "summary": "FAQ covering proposal acceptance, SEDA eATAP application, and financing.",
+      "tokens": 243,
+      "loadOrder": 111
+    },
+    {
+      "path": "faq/product-selection-inverter.md",
+      "topic": "product-selection-inverter",
+      "title": "Why Was This Inverter Selected?",
+      "summary": "FAQ covering SAJ string-inverter features and proposal-specific warranty confirmation.",
+      "tokens": 212,
+      "loadOrder": 108
+    },
+    {
+      "path": "faq/product-selection-panel.md",
+      "topic": "product-selection-panel",
+      "title": "Why Was This Solar Panel Selected?",
+      "summary": "FAQ covering the selection of JinkoSolar Tiger Neo 3 for tropical climates.",
+      "tokens": 220,
+      "loadOrder": 107
+    },
+    {
+      "path": "faq/proposal-value.md",
+      "topic": "proposal-value",
+      "title": "Why Is This Proposal Worth the Price?",
+      "summary": "FAQ covering the true value of safety and risk reduction over cheapest prices.",
+      "tokens": 241,
+      "loadOrder": 102
+    },
+    {
+      "path": "faq/protection-and-warranty.md",
+      "topic": "protection-and-warranty",
+      "title": "What Protection and Warranty Will I Receive?",
+      "summary": "FAQ covering 30-year panel warranty, 10-year inverter warranty, and MSIG insurance.",
+      "tokens": 237,
+      "loadOrder": 104
+    },
+    {
+      "path": "faq/roof-protection.md",
+      "topic": "roof-protection",
+      "title": "What Happens to My Roof?",
+      "summary": "FAQ covering the dedicated roof specialist team and roof warranties.",
+      "tokens": 188,
+      "loadOrder": 105
+    },
+    {
+      "path": "faq/saj-competitor-comparison.md",
+      "topic": "saj-competitor-comparison",
+      "title": "Saj Competitor Comparison",
+      "summary": "",
+      "tokens": 436,
+      "loadOrder": 120
+    },
+    {
+      "path": "faq/solar-savings-mechanism.md",
+      "topic": "solar-savings-mechanism",
+      "title": "How Will Solar Reduce My Electricity Bill?",
+      "summary": "FAQ covering self-consumption, Net Billing, and unoffsettable charges.",
+      "tokens": 261,
+      "loadOrder": 110
+    },
+    {
+      "path": "faq/system-suitability.md",
+      "topic": "system-suitability",
+      "title": "Is This System Suitable for My Property?",
+      "summary": "FAQ covering the Technical Site Assessment and load profile matching.",
+      "tokens": 235,
+      "loadOrder": 109
+    },
+    {
+      "path": "faq/trust-and-credentials.md",
+      "topic": "trust-and-credentials",
+      "title": "Can I Trust Eternalgy?",
+      "summary": "FAQ covering Eternalgy's CIDB G3, SEDA, and Maybank partner credentials.",
+      "tokens": 220,
+      "loadOrder": 101
+    },
+    {
+      "path": "faq/why-choose-eternalgy.md",
+      "topic": "why-choose-eternalgy",
+      "title": "Why Choose Eternalgy?",
+      "summary": "FAQ covering Eternalgy's in-house team, delivery speed, and zero subcontractor delays.",
+      "tokens": 260,
+      "loadOrder": 100
+    },
+    {
+      "path": "products/jinko-tiger-neo-3-overview.md",
+      "topic": "jinko-tiger-neo-3-overview",
+      "title": "JinkoSolar Tiger Neo 3.0: High-Efficiency Solar Panels for Malaysian Climates",
+      "summary": "The JinkoSolar Tiger Neo 3.0 is an N-type TOPCon solar panel series built on the HOT 4.0 platform, designed specifically to excel in Malaysia's hot, humid tropical conditions with up to 24.80% efficiency and superior temperature performance.",
+      "tokens": 1133,
+      "loadOrder": 60
+    },
+    {
+      "path": "products/saj-inverter-battery-product-range.md",
+      "topic": "saj-inverter-battery-product-range",
+      "title": "SAJ Solar Inverters and Energy Storage Systems Product Range",
+      "summary": "SAJ (Guangzhou Sanjing Electric) offers a comprehensive range of string inverters and all-in-one energy storage systems for residential and commercial applications, featuring high-efficiency conversion, modular battery architecture, and intelligent software integration.",
+      "tokens": 1304,
+      "loadOrder": 80
+    },
+    {
+      "path": "schemes/malaysia-solar-scheme.md",
+      "topic": "malaysia-solar-scheme",
+      "title": "Malaysia Solar Scheme",
+      "summary": "NEM, SelCo, eligibility, application process.",
+      "tokens": 465,
+      "loadOrder": 30
+    },
+    {
+      "path": "schemes/solar-atap-malaysia-complete-guide.md",
+      "topic": "solar-atap-malaysia-complete-guide",
+      "title": "Solar ATAP Malaysia: Complete Guide to Malaysia's New Rooftop Solar Scheme",
+      "summary": "Solar ATAP (Solar Accelerated Transition Action Programme) is Malaysia's new rooftop solar framework that replaced NEM 3.0 on January 1, 2026, eliminating national capacity quotas and introducing net billing with monthly credit resets. This guide covers eligibility, billing calculations, application process, financial incentives, and key differences from previous schemes.",
+      "tokens": 1413,
+      "loadOrder": 70
+    }
+  ]
+}
