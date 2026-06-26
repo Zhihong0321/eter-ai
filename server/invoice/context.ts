@@ -17,6 +17,14 @@ export interface InvoicePackageContext {
   agentContact: string;
   /** Ready-to-use wa.me link (Malaysia-normalised), or '' when unavailable. */
   agentWhatsAppUrl: string;
+  /** Net package price the customer pays in RM (invoice.total_amount), or null. */
+  priceNet: number | null;
+  /** Flat discount in RM applied to the package (invoice.discount_fixed). */
+  discountFixed: number;
+  /** Percentage discount applied to the package (invoice.discount_percent). */
+  discountPercent: number;
+  /** Applied voucher codes as stored (comma-separated text), or ''. */
+  voucherCode: string;
 }
 
 /**
@@ -93,7 +101,11 @@ select
     nullif(i.description, '')
   ) as package_description,
   coalesce(nullif(ag_linked.name, ''), nullif(ag_unique.name, ''), '') as agent_name,
-  coalesce(nullif(ag_linked.contact, ''), nullif(ag_unique.contact, ''), '') as agent_contact
+  coalesce(nullif(ag_linked.contact, ''), nullif(ag_unique.contact, ''), '') as agent_contact,
+  i.total_amount as price_net,
+  i.discount_fixed,
+  i.discount_percent,
+  i.voucher_code
 from invoice i
 left join customer c
   on c.customer_id = i.linked_customer
@@ -156,6 +168,19 @@ export class InvoiceContextError extends Error {
     super(message);
     this.name = 'InvoiceContextError';
   }
+}
+
+/**
+ * Parse a numeric column that Postgres `numeric` returns as a string
+ * (e.g. "19000", "21165.75"). Returns null for empty/invalid input.
+ */
+function parseNumeric(value: unknown): number | null {
+  if (typeof value === 'number') return Number.isFinite(value) ? value : null;
+  if (typeof value !== 'string') return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  const num = Number(trimmed);
+  return Number.isFinite(num) ? num : null;
 }
 
 export function validateInvoiceUid(value: unknown): string | null {
@@ -235,6 +260,11 @@ export async function getInvoicePackageContext(
     agentName,
     agentContact,
     agentWhatsAppUrl: buildAgentWhatsAppUrl(agentName, agentContact, customerName),
+    priceNet: parseNumeric(row.price_net),
+    discountFixed: Math.max(0, parseNumeric(row.discount_fixed) ?? 0),
+    discountPercent: Math.max(0, parseNumeric(row.discount_percent) ?? 0),
+    voucherCode:
+      typeof row.voucher_code === 'string' ? row.voucher_code.trim().slice(0, 300) : '',
   };
 }
 

@@ -27,6 +27,7 @@ import {
   searchInvoicePackages,
   validateInvoiceUid,
 } from '../invoice/context.js';
+import { renderInvoicePackageCard } from '../invoice/render-package-card.js';
 
 const router = Router();
 
@@ -166,10 +167,21 @@ router.post('/api/chat', async (req: Request, res: Response) => {
 
   /* ---- 3. Approved curated FAQ check ---- */
   const curated = await findCuratedFaq(question);
-  // Skip curated FAQ for invoice users asking about their specific package —
-  // the LLM will use the actual invoice package description instead.
-  const skipCurated = curated !== null && invoiceUid && curated.intent === 'package-contents';
-  if (curated !== null && !skipCurated) {
+  // For invoice users asking about their specific package, render the package
+  // card server-side from the actual invoice data instead of the generic
+  // curated answer. This is deterministic and instant (no LLM latency) while
+  // staying invoice-specific, and it includes the package price and discount.
+  const isInvoicePackageQuestion =
+    curated !== null && Boolean(invoiceUid) && curated.intent === 'package-contents';
+  if (isInvoicePackageQuestion && invoiceContext) {
+    res.json({
+      instant: true,
+      html: renderInvoicePackageCard(invoiceContext),
+      intent: curated.intent,
+    });
+    return;
+  }
+  if (curated !== null && !isInvoicePackageQuestion) {
     res.json({
       curated: true,
       html: curated.html,
