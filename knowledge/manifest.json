@@ -61,7 +61,7 @@
       "topic": "payment-methods",
       "title": "What Payment Methods Are Available?",
       "summary": "Payment options including Online GIRO, credit card, and Credit Card EPP instalments across 7 banks with rates and tenures.",
-      "tokens": 455,
+      "tokens": 521,
       "loadOrder": 112
     },
     {

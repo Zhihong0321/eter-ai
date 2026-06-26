@@ -1,8 +1,9 @@
 /**
- * Resolve the package attached to an invoice through the read-only Postgres
- * HTTP proxy. Proxy credentials remain server-side and are never sent to the
- * browser.
+ * Resolve the package attached to an invoice through a direct read-only
+ * Postgres connection (DATABASE_URL). Credentials remain server-side and are
+ * never sent to the browser.
  */
+import { getPool } from './db.js';
 /**
  * Convert a Malaysian phone number into the digits-only form wa.me expects
  * (country code 60, no '+', no spaces or dashes).
@@ -137,38 +138,22 @@ export function validateInvoiceUid(value) {
         return null;
     return uid;
 }
-async function runProxyQuery(sql, params) {
-    const proxyUrl = process.env.PG_PROXY_URL?.replace(/\/+$/, '');
-    const proxyToken = process.env.PG_PROXY_TOKEN;
-    const dbName = process.env.PG_PROXY_DB ?? 'prod_main';
-    if (!proxyUrl || !proxyToken) {
-        throw new InvoiceContextError('Invoice context is not configured on the server.', 503);
+async function runQuery(sql, params) {
+    const pool = getPool();
+    if (!pool) {
+        throw new InvoiceContextError('Invoice context is not configured on the server (DATABASE_URL missing).', 503);
     }
-    let response;
     try {
-        response = await fetch(`${proxyUrl}/api/sql`, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${proxyToken}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ db_name: dbName, sql, params }),
-            signal: AbortSignal.timeout(10_000),
-        });
+        const result = await pool.query(sql, params);
+        return result.rows;
     }
     catch (err) {
-        const message = err instanceof Error ? err.message : 'Unknown proxy error.';
+        const message = err instanceof Error ? err.message : 'Unknown database error.';
         throw new InvoiceContextError(`Could not load invoice context: ${message}`, 503);
     }
-    if (!response.ok) {
-        const detail = await response.text().catch(() => '');
-        throw new InvoiceContextError(`Invoice lookup service returned HTTP ${response.status}. ${detail.slice(0, 180)}`.trim(), 503);
-    }
-    const data = (await response.json());
-    return data.rows ?? [];
 }
 export async function getInvoicePackageContext(invoiceUid) {
-    const row = (await runProxyQuery(LOOKUP_SQL, [invoiceUid]))[0];
+    const row = (await runQuery(LOOKUP_SQL, [invoiceUid]))[0];
     if (!row) {
         throw new InvoiceContextError('Invoice UID was not found.', 404);
     }
@@ -203,7 +188,7 @@ export async function searchInvoicePackages(query) {
     if (normalized.length < 2 || normalized.length > 200) {
         throw new InvoiceContextError('Enter at least 2 characters of an invoice number or UID.', 400);
     }
-    const rows = await runProxyQuery(SEARCH_SQL, [`%${normalized}%`]);
+    const rows = await runQuery(SEARCH_SQL, [`%${normalized}%`]);
     return rows.flatMap((row) => {
         const invoiceUid = typeof row.invoice_uid === 'string' ? row.invoice_uid.trim() : '';
         if (!invoiceUid)
