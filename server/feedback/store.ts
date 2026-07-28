@@ -14,7 +14,12 @@ export interface TrainingFeedback {
   updatedAt: string;
 }
 
-const FEEDBACK_FILE = resolve(process.cwd(), 'training-data/feedback.json');
+// Use Railway's attached persistent volume when available (RAILWAY_VOLUME_MOUNT_PATH),
+// so feedback survives redeploys instead of living on the ephemeral container disk.
+const STORAGE_DIR = process.env.RAILWAY_VOLUME_MOUNT_PATH
+  ? resolve(process.env.RAILWAY_VOLUME_MOUNT_PATH, 'feedback')
+  : resolve(process.cwd(), 'training-data');
+const FEEDBACK_FILE = resolve(STORAGE_DIR, 'feedback.json');
 
 let writeQueue: Promise<void> = Promise.resolve();
 
@@ -66,4 +71,9 @@ export function saveFeedback(
 
   writeQueue = operation.catch(() => undefined);
   return operation.then(() => saved);
+}
+
+export async function listFeedback(): Promise<TrainingFeedback[]> {
+  const records = await readFeedback();
+  return [...records].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
 }

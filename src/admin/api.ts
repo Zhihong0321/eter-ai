@@ -30,6 +30,17 @@ export interface TokenBudget {
   files: Array<{ path: string; tokens: number }>;
 }
 
+export interface TrainingFeedback {
+  responseId: string;
+  question: string;
+  answerHtml: string;
+  invoiceUid: string | null;
+  rating: 'good' | 'bad' | null;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 /* ------------------------------------------------------------------ */
 /*  Password management                                                */
 /* ------------------------------------------------------------------ */
@@ -211,6 +222,14 @@ export async function saveIngested(
     method: 'POST',
     body: JSON.stringify({ category, filename, title, summary, content }),
   });
+}
+
+/* ------------------------------------------------------------------ */
+/*  Feedback                                                           */
+/* ------------------------------------------------------------------ */
+
+export async function getFeedback(): Promise<TrainingFeedback[]> {
+  return apiFetch('/api/admin/feedback');
 }
 
 /* ------------------------------------------------------------------ */

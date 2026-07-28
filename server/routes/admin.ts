@@ -21,6 +21,7 @@ import { resolve } from 'node:path';
 import { authMiddleware } from '../middleware/auth.js';
 import { buildManifest } from '../knowledge/manifest.js';
 import { getCacheEntries, markStaleByTopic } from '../cache/faq.js';
+import { listFeedback } from '../feedback/store.js';
 
 // Use process.cwd() so paths resolve correctly in both tsx and compiled modes
 const KNOWLEDGE_DIR = resolve(process.cwd(), 'knowledge');
@@ -349,6 +350,20 @@ router.delete(
     }
   },
 );
+
+/* ------------------------------------------------------------------ */
+/*  GET /api/admin/feedback — user comments & ratings                  */
+/* ------------------------------------------------------------------ */
+
+router.get('/api/admin/feedback', async (_req: Request, res: Response) => {
+  try {
+    const entries = await listFeedback();
+    res.json(entries);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: msg });
+  }
+});
 
 /* ------------------------------------------------------------------ */
 /*  GET /api/admin/settings — get current LLM config                   */

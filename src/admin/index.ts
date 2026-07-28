@@ -15,6 +15,7 @@ import {
   getTokenBudget,
   getCacheEntries,
   regenerateCache,
+  getFeedback,
   ingestData,
   ingestFile,
   saveIngested,
@@ -211,7 +212,7 @@ async function renderDashboard(container: HTMLElement): Promise<void> {
   let activeFile: { category: string; file: string } | null = null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let editorInstance: any = null;
-  type TabId = 'files' | 'cache' | 'tokens' | 'ingest' | 'settings';
+  type TabId = 'files' | 'feedback' | 'cache' | 'tokens' | 'ingest' | 'settings';
   let currentTab: TabId = 'files';
 
   /* ---- Root layout ---- */
@@ -273,6 +274,7 @@ async function renderDashboard(container: HTMLElement): Promise<void> {
 
   const tabs: Array<{ id: TabId; label: string }> = [
     { id: 'files', label: 'Knowledge Files' },
+    { id: 'feedback', label: 'User Feedback' },
     { id: 'cache', label: 'FAQ Cache' },
     { id: 'tokens', label: 'Token Budget' },
     { id: 'ingest', label: 'Ingest Data' },
@@ -355,6 +357,9 @@ async function renderDashboard(container: HTMLElement): Promise<void> {
     switch (currentTab) {
       case 'files':
         renderFilesTab();
+        break;
+      case 'feedback':
+        renderFeedbackTab();
         break;
       case 'cache':
         renderCacheTab();
@@ -897,6 +902,93 @@ async function renderDashboard(container: HTMLElement): Promise<void> {
     }
 
     draw();
+  }
+
+  /* ================================================================ */
+  /*  FEEDBACK TAB                                                     */
+  /* ================================================================ */
+
+  async function renderFeedbackTab(): Promise<void> {
+    content.innerHTML =
+      '<div style="text-align:center;padding:40px;color:#9CA3AF">Loading feedback...</div>';
+
+    try {
+      const entries = await getFeedback();
+      content.innerHTML = '';
+
+      if (entries.length === 0) {
+        content.innerHTML =
+          '<div style="text-align:center;padding:40px;color:#9CA3AF">No feedback submitted yet.</div>';
+        return;
+      }
+
+      const topBar = el('div');
+      topBar.style.cssText = 'margin-bottom:16px;';
+      const countLabel = el('span');
+      countLabel.style.cssText = 'font-size:0.875rem;color:#6B7280;';
+      const commented = entries.filter((e) => e.comment.length > 0).length;
+      const good = entries.filter((e) => e.rating === 'good').length;
+      const bad = entries.filter((e) => e.rating === 'bad').length;
+      countLabel.textContent = `${entries.length} responses rated — ${good} good, ${bad} bad, ${commented} with comments`;
+      topBar.appendChild(countLabel);
+      content.appendChild(topBar);
+
+      const list = el('div', 'faq-list');
+
+      for (const entry of entries) {
+        const item = el('div', 'faq-item');
+        item.style.cssText = 'flex-direction:column;align-items:stretch;gap:6px;';
+
+        const topRow = el('div');
+        topRow.style.cssText = 'display:flex;justify-content:space-between;gap:12px;align-items:flex-start;';
+
+        const question = el('p', 'faq-item__question');
+        question.textContent = entry.question;
+        question.style.margin = '0';
+
+        const meta = el('div', 'faq-item__meta');
+        meta.style.cssText = 'display:flex;gap:8px;align-items:center;flex-shrink:0;';
+
+        if (entry.rating) {
+          const badge = el('span');
+          badge.className = `status-badge ${entry.rating === 'good' ? 'status-badge--active' : 'status-badge--stale'}`;
+          badge.textContent = entry.rating === 'good' ? 'Good' : 'Bad';
+          meta.appendChild(badge);
+        }
+
+        const date = el('span', 'faq-item__date');
+        try {
+          date.textContent = new Date(entry.updatedAt).toLocaleString();
+        } catch {
+          date.textContent = entry.updatedAt;
+        }
+        meta.appendChild(date);
+
+        topRow.append(question, meta);
+        item.appendChild(topRow);
+
+        if (entry.comment) {
+          const comment = el('p');
+          comment.style.cssText =
+            'margin:0;padding:8px 12px;background:#F9FAFB;border-left:3px solid #F59E0B;border-radius:4px;font-size:0.85rem;color:#374151;white-space:pre-wrap;';
+          comment.textContent = entry.comment;
+          item.appendChild(comment);
+        }
+
+        if (entry.invoiceUid) {
+          const invoice = el('p');
+          invoice.style.cssText = 'margin:0;font-size:0.75rem;color:#9CA3AF;';
+          invoice.textContent = `Invoice: ${entry.invoiceUid}`;
+          item.appendChild(invoice);
+        }
+
+        list.appendChild(item);
+      }
+
+      content.appendChild(list);
+    } catch (err) {
+      content.innerHTML = `<div style="text-align:center;padding:40px;color:#EF4444">${escapeHtml(err instanceof Error ? err.message : 'Failed to load feedback.')}</div>`;
+    }
   }
 
   /* ================================================================ */
