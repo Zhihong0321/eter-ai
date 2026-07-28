@@ -10,14 +10,10 @@ import { streamChat } from './streaming.js';
 /*  Constants                                                          */
 /* ------------------------------------------------------------------ */
 
-const SUGGESTIONS = [
-  'How does solar work?',
-  'Jinko Tiger Neo 3 specs',
-  'Malaysia solar scheme',
-  'Why choose us?',
-];
+const SUGGESTIONS = ['English', '中文', 'Bahasa Malaysia'];
 
-const WELCOME_TEXT = 'Hi! Ask me anything about solar PV in Malaysia.';
+const WELCOME_TEXT =
+  'Hi! Which language would you like to chat in — English or 中文? (Bahasa Malaysia is welcome too.)';
 
 const SUN_SVG = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <circle cx="12" cy="12" r="5" fill="currentColor"/>

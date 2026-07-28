@@ -25,6 +25,15 @@ export interface InvoicePackageContext {
   discountPercent: number;
   /** Applied voucher codes as stored (comma-separated text), or ''. */
   voucherCode: string;
+  /** Public "View Quotation" link (calculator.atap.solar/view/<share_token>), or '' when no share token exists. */
+  quotationViewUrl: string;
+}
+
+/** Build the public quotation-view URL from an invoice's share_token, or '' if absent. */
+export function buildQuotationViewUrl(shareToken: string): string {
+  const token = shareToken.trim();
+  if (!token) return '';
+  return `https://calculator.atap.solar/view/${token}`;
 }
 
 /**
@@ -105,7 +114,8 @@ select
   i.total_amount as price_net,
   i.discount_fixed,
   i.discount_percent,
-  i.voucher_code
+  i.voucher_code,
+  i.share_token
 from invoice i
 left join customer c
   on c.customer_id = i.linked_customer
@@ -265,6 +275,8 @@ export async function getInvoicePackageContext(
     discountPercent: Math.max(0, parseNumeric(row.discount_percent) ?? 0),
     voucherCode:
       typeof row.voucher_code === 'string' ? row.voucher_code.trim().slice(0, 300) : '',
+    quotationViewUrl:
+      typeof row.share_token === 'string' ? buildQuotationViewUrl(row.share_token) : '',
   };
 }
 
@@ -329,6 +341,18 @@ export function buildInvoicePromptContext(
     context.packageDescription,
     '--- CUSTOMER AND PACKAGE DATA END ---',
   ];
+
+  if (context.quotationViewUrl) {
+    lines.push(
+      '',
+      '## Quotation View Link',
+      '',
+      `This customer's full quotation/proposal document can be viewed online at this EXACT link (use exactly as-is, do not modify or reconstruct it): ${context.quotationViewUrl}`,
+      'When the customer asks to view, see, open, download, share, or get a link to their full quotation or proposal (e.g. "can I get the quotation link", "where can I view my quote", "send me the proposal"), respond with a short friendly message, then output this EXACT call-to-action component:',
+      `<a class="ans-cta" href="${context.quotationViewUrl}" target="_blank" rel="noopener">View Full Quotation</a>`,
+      'Do NOT invent or guess a quotation link for any other invoice or customer. Only ever use the exact URL given above, and only when this section is present in context.',
+    );
+  }
 
   if (context.agentWhatsAppUrl) {
     const consultantName = context.agentName || 'your sales consultant';
