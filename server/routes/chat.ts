@@ -14,7 +14,8 @@
  */
 
 import { Router, type Request, type Response } from 'express';
-import { generateAnswer } from '../llm/client.js';
+import { generateAnswer, getConfig, isLlmErrorMessage } from '../llm/client.js';
+import { logAiActivity } from '../llm/activityLog.js';
 import { buildSystemPrompt } from '../knowledge/prompt.js';
 import { findCuratedFaq } from '../knowledge/curated-faq.js';
 import { findCachedAnswer } from '../cache/faq.js';
@@ -211,6 +212,7 @@ router.post('/api/chat', async (req: Request, res: Response) => {
   // Flush headers immediately
   res.flushHeaders();
 
+  const startedAt = Date.now();
   let stream: ReadableStream<string>;
   try {
     const basePrompt = await getSystemPrompt();
@@ -223,24 +225,57 @@ router.post('/api/chat', async (req: Request, res: Response) => {
     res.write(`data: ${JSON.stringify({ chunk: `[Error] ${msg}` })}\n\n`);
     res.write('data: [DONE]\n\n');
     res.end();
+
+    const { MODEL, BASE_URL } = getConfig();
+    void logAiActivity({
+      agent: MODEL,
+      agentKind: 'chat',
+      model: MODEL,
+      apiUrl: BASE_URL,
+      action: 'chat_completion',
+      description: 'Chat LLM call failed while building the prompt',
+      inputSummary: question,
+      durationMs: Date.now() - startedAt,
+      status: 'failed',
+      errorMessage: msg,
+    });
     return;
   }
 
   /* ---- Pipe tokens → SSE ---- */
   const reader = stream.getReader();
+  let fullAnswer = '';
+  let streamError: string | null = null;
 
   try {
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
+      fullAnswer += value;
       res.write(`data: ${JSON.stringify({ chunk: value })}\n\n`);
     }
   } catch (err) {
-    const msg = err instanceof Error ? err.message : 'Stream read error.';
-    res.write(`data: ${JSON.stringify({ chunk: `[Error] ${msg}` })}\n\n`);
+    streamError = err instanceof Error ? err.message : 'Stream read error.';
+    res.write(`data: ${JSON.stringify({ chunk: `[Error] ${streamError}` })}\n\n`);
   } finally {
     res.write('data: [DONE]\n\n');
     res.end();
+
+    const { MODEL, BASE_URL } = getConfig();
+    const answerError = streamError ?? (isLlmErrorMessage(fullAnswer) ? fullAnswer : null);
+    void logAiActivity({
+      agent: MODEL,
+      agentKind: 'chat',
+      model: MODEL,
+      apiUrl: BASE_URL,
+      action: 'chat_completion',
+      description: 'Answered a customer chat question via the LLM',
+      inputSummary: question,
+      outputSummary: fullAnswer,
+      durationMs: Date.now() - startedAt,
+      status: answerError ? 'failed' : 'success',
+      errorMessage: answerError ?? undefined,
+    });
   }
 });
 

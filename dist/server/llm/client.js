@@ -29,6 +29,15 @@ function errorStream(message) {
         },
     });
 }
+/** True when the complete stream payload is the local client error response. */
+export function isLlmErrorMessage(message) {
+    return [
+        'The AI service is not configured.',
+        'Network error reaching the AI service:',
+        'AI service returned HTTP',
+        'AI service returned an empty response.',
+    ].some((prefix) => message.startsWith(prefix));
+}
 /**
  * Parse a raw SSE line and return the text token it carries, if any.
  * Handles both OpenAI and Anthropic streaming JSON shapes.

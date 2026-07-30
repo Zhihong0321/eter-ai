@@ -14,6 +14,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
+import { logAiActivity } from '../server/llm/activityLog.js';
 
 dotenv.config();
 
@@ -324,6 +325,7 @@ async function main(): Promise<void> {
     const label = `[${i + 1}/${toProcess.length}]`;
 
     process.stdout.write(`${label} ${entry.question} ... `);
+    const startedAt = Date.now();
 
     try {
       const answer = await callLLM(entry.question, knowledgeContext);
@@ -336,6 +338,18 @@ async function main(): Promise<void> {
         entries[idx].stale = false;
       }
 
+      await logAiActivity({
+        agent: MODEL,
+        agentKind: 'faq_generator',
+        model: MODEL,
+        apiUrl: BASE_URL,
+        action: 'faq_generation',
+        description: `Generated a FAQ answer for topic: ${entry.topic}`,
+        inputSummary: entry.question,
+        outputSummary: answer,
+        durationMs: Date.now() - startedAt,
+      });
+
       console.log('OK');
       success++;
 
@@ -343,6 +357,18 @@ async function main(): Promise<void> {
       await new Promise((r) => setTimeout(r, 500));
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
+      await logAiActivity({
+        agent: MODEL,
+        agentKind: 'faq_generator',
+        model: MODEL,
+        apiUrl: BASE_URL,
+        action: 'faq_generation',
+        description: `FAQ generation failed for topic: ${entry.topic}`,
+        inputSummary: entry.question,
+        durationMs: Date.now() - startedAt,
+        status: 'failed',
+        errorMessage: msg,
+      });
       console.log(`FAILED (${msg})`);
       failed++;
     }

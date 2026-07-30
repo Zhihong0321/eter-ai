@@ -7,6 +7,7 @@
 
 import { execFile } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
+import { logAiActivity } from '../llm/activityLog.js';
 
 /** Path to the claude-code CLI (3p / third-party provider build) */
 const CLAUDE_CLI = 'C:\\Users\\Eternalgy\\AppData\\Local\\Claude-3p\\claude-code\\2.1.181\\claude.exe';
@@ -310,19 +311,49 @@ export async function distillContent(
     ANTHROPIC_BASE_URL: baseUrl,
   };
 
-  let stdout: string;
-  stdout = await execPromise(CLAUDE_CLI, args, env, userPrompt);
+  const startedAt = Date.now();
+  const inputSummary = `category=${category}; source_chars=${rawMarkdown.length}`;
 
-  if (!stdout.trim()) {
-    throw new Error('claude code returned empty output during distillation.');
+  try {
+    const stdout = await execPromise(CLAUDE_CLI, args, env, userPrompt);
+
+    if (!stdout.trim()) {
+      throw new Error('claude code returned empty output during distillation.');
+    }
+
+    const parsed = parseDistillResponse(stdout);
+    await logAiActivity({
+      agent: 'claude-code',
+      agentKind: 'knowledge_distiller',
+      model: 'claude-code',
+      apiUrl: baseUrl,
+      action: 'knowledge_distillation',
+      description: 'Generated a distilled knowledge-base article',
+      inputSummary,
+      outputSummary: `${parsed.title}: ${parsed.summary}`,
+      durationMs: Date.now() - startedAt,
+    });
+
+    return {
+      distilled: parsed.content,
+      suggestedFilename: parsed.suggestedFilename,
+      title: parsed.title,
+      summary: parsed.summary,
+    };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    await logAiActivity({
+      agent: 'claude-code',
+      agentKind: 'knowledge_distiller',
+      model: 'claude-code',
+      apiUrl: baseUrl,
+      action: 'knowledge_distillation',
+      description: 'Knowledge-base distillation failed',
+      inputSummary,
+      durationMs: Date.now() - startedAt,
+      status: 'failed',
+      errorMessage: message,
+    });
+    throw err;
   }
-
-  const parsed = parseDistillResponse(stdout);
-
-  return {
-    distilled: parsed.content,
-    suggestedFilename: parsed.suggestedFilename,
-    title: parsed.title,
-    summary: parsed.summary,
-  };
 }
